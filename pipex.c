@@ -87,16 +87,55 @@ int vaild_argv(char **argv, char **envp)
     return (1);
 }
 
-char **add_cmd_option(int argc, char **argv, char **cmd_path)
+int count_cmd(char **argv)
 {
     int i;
-    char **full_cmd_str;
+    int count;
 
     i = 2;
-    while (i < argc - 1)
+    count = 0;
+    while (argv[i + 1] != NULL)
     {
-        
+        if (argv[i][0] == '-')
+            i++;
+        else
+        {
+            count++;
+            i++;
+        }
     }
+    return (count);
+}
+
+char **full_cmd_option(int argc, char **argv, char **cmd_path)
+{
+    int p_idx;
+    int av_idx;
+    int i;
+    int count;
+    char *tmp;
+    char **full_cmd_str;
+
+    i = 0;
+    p_idx = 0;
+    av_idx = 2;
+    count = count_cmd(argv);
+    full_cmd_str = (char **)malloc(sizeof(char *) * (count + 1));
+    while (cmd_path[p_idx] != NULL)
+    {
+        tmp = ft_strjoin(cmd_path[p_idx], argv[av_idx]);
+        if (access(tmp, F_OK | X_OK) == 0)
+        {
+            full_cmd_str[i] = tmp;
+            while (argv[av_idx + 1] == '-')
+            {
+                tmp = ft_strjoin();
+            }
+        }
+        else
+            free(tmp);
+    }
+    
 }
 
 int main(int argc, char *argv[], char *envp[])
