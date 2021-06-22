@@ -156,7 +156,7 @@ void free_cmd(t_cmd **cmd)
     {
         tmp = (*cmd)->next;
         free((*cmd)->cmd_str);
-        (*cmd)->cmd_str = '\0';
+        (*cmd)->cmd_str = NULL;
         free(*cmd);
         *cmd = tmp;
     }

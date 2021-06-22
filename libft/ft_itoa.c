@@ -41,10 +41,12 @@ char	*make_ptr(char *ptr, int n, int len, int sign)
 
 char	*ft_itoa(int n)
 {
+	int		i;
 	int		tmp;
 	int		len;
 	char	*ptr;
 
+	i = 0;
 	len = 0;
 	tmp = n;
 	while ((tmp = tmp / 10) != 0)

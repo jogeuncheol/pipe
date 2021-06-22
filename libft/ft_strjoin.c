@@ -17,8 +17,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*ptr;
 	int		len;
 	int		i;
+	int		j;
 
 	i = 0;
+	j = 0;
 	len = 0;
 	if (s1 == NULL && s2 == NULL)
 		return (NULL);

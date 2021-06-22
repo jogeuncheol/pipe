@@ -6,7 +6,7 @@
 #    By: gejo <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/01 19:35:43 by gejo              #+#    #+#              #
-#    Updated: 2021/01/17 00:55:50 by gejo             ###   ########.fr        #
+#    Updated: 2021/01/01 19:36:51 by gejo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,8 +58,8 @@ BNSS = ft_lstnew.c\
 	   ft_lstiter.c\
 	   ft_lstmap.c
 
-OBJ= $(SRC:.c=.o)
-BNSO= $(BNSS:.c=.o)
+OBJ = $(SRC:.c=.o)
+BNSO = $(BNSS:.c=.o)
 
 all : $(NAME)
 

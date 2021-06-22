@@ -5,6 +5,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <errno.h>
+# include <pipe.h>
 
 # include <stdio.h>
 
@@ -20,5 +21,10 @@ char	*ft_strdup(const char *s1);
 size_t		ft_strlen(const char *str);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
+
+int find_path(char **envp);
+char *path_str(char *full_path, int s_idx, int e_idx);
+int length_of_path(char *envp);
+char **set_path(char **cmd_path, char **envp);
 
 #endif

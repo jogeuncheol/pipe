@@ -1,5 +1,15 @@
 #include "pipex.h"
 
+void print_path(char **cmd_path)
+{
+    int i = 0;
+    while (cmd_path[i] != NULL)
+    {
+        printf("cmd_path : %s\n", cmd_path[i]);
+        i++;
+    }
+}
+
 int find_path(char **envp)
 {
     int i;
@@ -50,6 +60,7 @@ int vaild_argv(char **argv, char **envp)
     i = 0;
     cmd_idx = 2;
     idx = find_path(envp);
+    printf("envp[%d] : %s\n", idx, envp[idx]);
     while (idx != -1 && argv[cmd_idx + 1] != NULL)
     {
         while (envp[idx][i] != '/')
@@ -62,13 +73,36 @@ int vaild_argv(char **argv, char **envp)
         tmp = cmd_path;
         cmd_path = ft_strjoin(tmp, argv[cmd_idx]);
         free(tmp);
+        printf("cmd_path : %s\n", cmd_path);
         if (argv[cmd_idx + 1][0] == '-')
             cmd_idx++;
+        if (access(cmd_path, F_OK | X_OK) == 0)
+        {
+            printf("find cmd : %s\n", cmd_path);
+            cmd_idx++;
+            i = 0;
+        }
+        printf("argv[%d] : %s\n", cmd_idx, argv[cmd_idx]);
+    }
+    return (1);
+}
+
+char **add_cmd_option(int argc, char **argv, char **cmd_path)
+{
+    int i;
+    char **full_cmd_str;
+
+    i = 2;
+    while (i < argc - 1)
+    {
+        
     }
 }
 
 int main(int argc, char *argv[], char *envp[])
 {
+    char **cmd_path;
+
     if (argc > 3)
     {
         if (access(argv[1], F_OK) == -1)
@@ -79,6 +113,8 @@ int main(int argc, char *argv[], char *envp[])
         else
         {
             // pipex start
+            cmd_path = set_path(cmd_path, envp);
+            print_path(cmd_path);
         }
     }
     else

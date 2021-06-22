@@ -6,7 +6,7 @@
 /*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 03:19:01 by gejo              #+#    #+#             */
-/*   Updated: 2021/01/26 21:45:00 by gejo             ###   ########.fr       */
+/*   Updated: 2020/12/29 21:59:53 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	**make_free(char **ptr)
 	while (ptr[i])
 	{
 		free(ptr[i]);
-		ptr[i] = 0;
 		i++;
 	}
 	return (ptr);
@@ -108,7 +107,6 @@ char	**ft_split(char const *s, char c)
 	{
 		make_free(ptr);
 		free(ptr);
-		ptr = 0;
 		return (NULL);
 	}
 	ptr[len] = (NULL);
