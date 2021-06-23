@@ -5,7 +5,8 @@
 # include <unistd.h>
 # include <string.h>
 # include <errno.h>
-# include <pipe.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 
 # include <stdio.h>
 

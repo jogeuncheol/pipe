@@ -100,7 +100,7 @@ t_cmd *link_cmd(t_cmd **cmd, char *envp_str)
     }
     return (head);
 }
-
+/*
 void set_path(t_cmd **cmd, char **argv, char **envp)
 {
     int envp_idx;
@@ -147,7 +147,7 @@ void set_path(t_cmd **cmd, char **argv, char **envp)
             free(envp_str);
     }
 }
-
+*/
 void free_cmd(t_cmd **cmd)
 {
     t_cmd *tmp;
@@ -181,8 +181,8 @@ int main(int argc, char *argv[], char *envp[])
             printf("file1이 존재하지 않음\n");
         else
         {
-            set_path(&cmd, argv, envp);
-            free_cmd(&cmd);
+            //set_path(&cmd, argv, envp);
+            //free_cmd(&cmd);
         }
     }
     else
