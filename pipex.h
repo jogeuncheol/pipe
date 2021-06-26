@@ -13,6 +13,7 @@
 typedef struct s_cmd
 {
     char *cmd_str;
+    char cmd_option;
     struct s_cmd *next;
 }           t_cmd;
 
@@ -24,8 +25,13 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 
 int find_path(char **envp);
+int find_path_idx(char **envp);
 char *path_str(char *full_path, int s_idx, int e_idx);
 int length_of_path(char *envp);
 char **set_path(char **cmd_path, char **envp);
+char **set_path2(char **cmd_path, char **envp, int idx);
+
+void print_path(char **cmd_path);
+void malloc_error(char **cmd);
 
 #endif

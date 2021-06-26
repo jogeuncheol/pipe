@@ -69,25 +69,6 @@ int find_path(char **envp)
     return (-1);
 }
 
-char *path_str(char *full_path, int s_idx, int e_idx)
-{
-    int i;
-    char *str;
-
-    str = (char *)malloc(sizeof(char) * (e_idx - s_idx) + 2);
-    if (str == NULL)
-        return (NULL);
-    i = 0;
-    while (i < e_idx - s_idx)
-    {
-        str[i] = full_path[s_idx + i];
-        i++;
-    }
-    str[i++] = '/';
-    str[i] = '\0';
-    return (str);
-}
-
 int vaild_argv(char **argv, char **envp)
 {
     int i;
@@ -148,7 +129,8 @@ int valid_cmd(char **argv, char **cmd_path)
 		while (cmd_path[c_idx] != NULL && c_flag == 0)
 		{
 			cmd = ft_strjoin(cmd_path[c_idx], argv[i]);
-			if (access(cmd, F_OK | X_OK) == 0)
+			printf("cmd : %s\n", cmd);
+			if (access(cmd, F_OK) == 0)
 			{
 				c_flag = 1;
 				argv[i] = cmd;
@@ -358,7 +340,12 @@ int ft_exec(char **argv, pid_t pid)
 		idx++;
 	}
 	exec_cmd[idx] = NULL;
-	execve(exec_cmd[0], exec_cmd, NULL);
+	printf("hello\n");
+	if (execve(exec_cmd[0], exec_cmd, NULL) == -1)
+	{
+		perror(strerror(errno));
+        return (errno);
+	}
 	return (1);
 }
 
@@ -366,10 +353,10 @@ void ft_child(int *fd, char **argv, pid_t pid)
 {
 	int file1_fd;
 
-	close(fd[0]);
-	dup2(fd[1], 1);
-	file1_fd = open(argv[1], O_RDONLY);
-	dup2(file1_fd, 0);
+	// close(fd[0]);
+	// dup2(fd[1], 1);
+	// file1_fd = open(argv[1], O_RDONLY);
+	// dup2(file1_fd, 0);
 	// dup2(fd[1], 1);
 	ft_exec(argv, pid);
 }
@@ -380,7 +367,7 @@ void ft_parent(int *fd, char **argv, int argc, pid_t pid)
 	pid_t wait_pid;
 
 	// wait_pid = wait(0);
-	// wait(0);
+	wait(0);
 	// close(fd[1]);
 	// file2_fd = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0666);
 	// dup2(fd[0], 0);
@@ -392,6 +379,7 @@ int ft_pipex(int argc, char **argv)
 {
 	int i;
 	int fd[2];
+	int backup_read_fd;
 	pid_t pid;
 
 	i = 2;
@@ -428,10 +416,14 @@ int main(int argc, char *argv[], char *envp[])
         {
             // pipex start
             cmd_path = set_path(cmd_path, envp);
-            // print_path(cmd_path);
+            print_path(cmd_path);
 			valid = valid_cmd(argv, cmd_path);
+			printf("cmd count : %d\n", count_cmd(argv));
 			if (valid == 0)
-				return (-1);
+			{
+				perror(strerror(errno));
+            	return (errno);
+			}
 			// pipex(argv, cmd_path);
 			if (ft_pipex(argc, argv) == 0)
 				return (-1);

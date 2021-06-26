@@ -10,7 +10,7 @@ void print_argv(char **argv)
     printf("========argv address========\n");
     while (argv[i] != NULL)
     {
-        printf("argv[%d] : %p\n", i, argv[i]);
+        printf("argv[%d] : %s %p\n", i, argv[i], argv[i]);
         i++;
     }
 }

@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 
 /*
  * loop over commands by sharing
@@ -35,7 +36,7 @@ pipeline(char ***cmd, char **envp)
 			exit(1);
 		}
 		else {
-			wait(NULL); 		/* Collect childs */
+			wait(0); 		/* Collect childs */
 			printf("parent pid : %d\nparent ppid : %d\n", getpid(), getppid());
 			close(fd[1]);
 			fdd = fd[0];
