@@ -13,7 +13,7 @@
 typedef struct s_cmd
 {
     char *cmd_str;
-    char cmd_option;
+    char cmd_count;
     struct s_cmd *next;
 }           t_cmd;
 

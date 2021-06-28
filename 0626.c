@@ -90,13 +90,15 @@ char **set_path2(char **cmd_path, char **envp, int idx)
     return (cmd_path);
 }
 
-int valid_cmd(char **argv, char **cmd_path)
+int valid_cmd(char **argv, char **cmd_path, t_cmd **cmd_list)
 {
 	int i;
 	int c_idx;
 	int c_flag;
 	char *cmd;
+	int cmd_count;
 
+	cmd_count = 0;
 	i = 2;
 	while (argv[i + 1] != NULL)
 	{
@@ -113,23 +115,28 @@ int valid_cmd(char **argv, char **cmd_path)
 			if (access(cmd, F_OK) == 0)
 			{
 				c_flag = 1;
-				argv[i] = cmd;
+				cmd_count++;
+				set_cmd_list(cmd_list, cmd, cmd_count);
+//				argv[i] = cmd;
 			}
 			else
+			{
+				set_cmd_list(cmd_list, argv[i], cmd_count);
 				free(cmd);
+			}
 			c_idx++;
 		}
-        printf("argv[i - 1] : %s\n", argv[i - 1]);
+		printf("argv[i - 1] : %s\n", argv[i - 1]);
 		if (c_flag == 0)
-        {
-            if (access(argv[i - 1], F_OK) == 0)
-            {
-                i++;
-                c_flag = 1;
-                continue;
-            }
+		{
+			if (access(argv[i - 1], F_OK) == 0)
+			{
+				i++;
+				c_flag = 1;
+				continue;
+			}
 			return (0);
-        }
+		}
 		i++;
 	}
 	return (c_flag);
@@ -138,7 +145,7 @@ int valid_cmd(char **argv, char **cmd_path)
 int main(int argc, char *argv[], char *envp[])
 {
 	char **cmd_path;
-	t_cmd cmd_list;
+	t_cmd *cmd_list;
 	int cmd_valid;
 
 	if (argc > 3)
@@ -154,7 +161,7 @@ int main(int argc, char *argv[], char *envp[])
 			if (cmd_path == NULL)
 				return (-1);
 			print_path(cmd_path);
-			cmd_valid = valid_cmd(argv, cmd_path);
+			cmd_valid = valid_cmd(argv, cmd_path, &cmd_list);
 			printf("cmd_valid : %d\n", cmd_valid);
 		}
 	}

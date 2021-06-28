@@ -110,6 +110,20 @@ int vaild_argv(char **argv, char **envp)
     return (1);
 }
 
+int find_sp(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == ' ')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int valid_cmd(char **argv, char **cmd_path)
 {
 	int i;
@@ -120,6 +134,12 @@ int valid_cmd(char **argv, char **cmd_path)
 	i = 2;
 	while (argv[i + 1] != NULL)
 	{
+		if (find_sp(argv[i]) == 1)
+		{
+			replace_argv(argv[i]);
+			i++;
+			continue ;
+		}
 		while (argv[i][0] == '-')
 			i++;
 		if (argv[i + 1] == NULL)
@@ -419,14 +439,16 @@ int main(int argc, char *argv[], char *envp[])
             print_path(cmd_path);
 			valid = valid_cmd(argv, cmd_path);
 			printf("cmd count : %d\n", count_cmd(argv));
+			if (count_cmd(argv) <= 1)
+				return(-2);
 			if (valid == 0)
 			{
 				perror(strerror(errno));
             	return (errno);
 			}
 			// pipex(argv, cmd_path);
-			if (ft_pipex(argc, argv) == 0)
-				return (-1);
+			// if (ft_pipex(argc, argv) == 0)
+			// 	return (-1);
 			free_cmd_path(cmd_path);
 			free_cmd_argv(argv);
         }
