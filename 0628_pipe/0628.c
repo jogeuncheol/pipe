@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 
-void free_cmd_arr(char ***cmd_arr)
+char ***free_cmd_arr(char ***cmd_arr)
 {
 	int i;
 	int j;
@@ -27,9 +27,10 @@ void free_cmd_arr(char ***cmd_arr)
 	}
 	free(cmd_arr);
 	cmd_arr = NULL;
+	return (cmd_arr);
 }
 
-void free_cmd_path(char **cmd_path)
+char **free_cmd_path(char **cmd_path)
 {
 	int i;
 
@@ -41,6 +42,20 @@ void free_cmd_path(char **cmd_path)
 		i++;
 	}
 	free(cmd_path);
+	cmd_path = NULL;
+	return (cmd_path);
+}
+
+void ft_error_fn(char **cmd_path, char ***cmd_arr, char **in_cmd_arr)
+{
+	if (cmd_path != NULL)
+		free_cmd_path(cmd_path);
+	if (cmd_arr != NULL)
+		free_cmd_arr(cmd_arr);
+	if (in_cmd_arr != NULL)
+		free_cmd_path(in_cmd_arr);
+	perror(strerror(errno));
+	exit(errno);
 }
 
 size_t		ft_strlen(const char *str)
@@ -122,7 +137,8 @@ void malloc_error(char **cmd)
 		i++;
 	}
 	free(cmd);
-	exit(1);
+	perror(strerror(errno));
+	exit(errno);
 }
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n)
@@ -217,7 +233,7 @@ char **set_path2(char **cmd_path, char **envp, int idx)
 		e_idx = i;
 		cmd_path[j] = path_str(envp[idx], s_idx, e_idx);
 		if (cmd_path[j] == NULL)
-			malloc_error(cmd_path);
+			ft_error_fn(cmd_path, NULL, NULL);
 		j++;
 	}
 	cmd_path[j] = NULL;
@@ -271,10 +287,14 @@ int check_with_sp(char **cmd_path, char *str)
 	char *c_cmd;
 
 	c_cmd = cut_str(str);
+	if (c_cmd == NULL)
+		ft_error_fn(cmd_path, NULL, NULL);
 	i = 0;
 	while (cmd_path[i] != NULL)
 	{
 		cmd = ft_strjoin(cmd_path[i], c_cmd);
+		if (cmd == NULL)
+			ft_error_fn(cmd_path, NULL, NULL);
 		printf("cmd : %s\n", cmd);
 		if (access(cmd, F_OK) == 0)
 		{
@@ -298,6 +318,8 @@ int check_without_sp(char **cmd_path, char *str)
 	while (cmd_path[i] != NULL)
 	{
 		cmd = ft_strjoin(cmd_path[i], str);
+		if (cmd == NULL)
+			ft_error_fn(cmd_path, NULL, NULL);
 		printf("cmd : %s\n", cmd);
 		if (access(cmd, F_OK) == 0)
 		{
@@ -319,10 +341,6 @@ int valid_argv(char **cmd_path, char **argv)
 	while (argv[i + 1] != NULL)
 	{
 		valid_check = 0;
-		while (argv[i][0] == '-')
-			i++;
-		if (argv[i + 1] == NULL)
-			break ;
 		if (find_sp(argv[i]) == 1)
 			valid_check = check_with_sp(cmd_path, argv[i]);
 		else
@@ -331,6 +349,10 @@ int valid_argv(char **cmd_path, char **argv)
 			i++;
 		else
 			return (0);
+		while (argv[i][0] == '-')
+			i++;
+		if (argv[i] == NULL)
+			break ;
 	}
 	return (1);
 }
@@ -355,8 +377,9 @@ int count_cmd(char **argv)
     return (count);
 }
 
-char **set_cmd_sp(char **in_cmd_arr, char **cmd_path, char *argv, int i)
+char **set_cmd_sp(char **cmd_path, char *argv, int i)
 {
+	char **in_cmd_arr;
 	char *tmp;
 	char *cmd;
 	int c_idx;
@@ -383,6 +406,8 @@ char **set_cmd_sp(char **in_cmd_arr, char **cmd_path, char *argv, int i)
 		while (argv[j] == ' ')
 			j++;
 		in_cmd_arr[i] = cut_str(&argv[j]);
+		if (in_cmd_arr[i] == NULL)
+			return (free_cmd_path(in_cmd_arr));
 		while (argv[j] != '\0' && argv[j] != ' ')
 			j++;
 		i++;
@@ -393,6 +418,8 @@ char **set_cmd_sp(char **in_cmd_arr, char **cmd_path, char *argv, int i)
 	while (cmd_path[c_idx] != NULL)
 	{
 		cmd = ft_strjoin(cmd_path[c_idx], tmp);
+		if (cmd == NULL)
+			break ;
 		printf("cmd : %s\n", cmd);
 		if (access(cmd, F_OK) == 0)
 			break ;
@@ -400,6 +427,8 @@ char **set_cmd_sp(char **in_cmd_arr, char **cmd_path, char *argv, int i)
 		c_idx++;
 	}
 	free(tmp);
+	if (cmd == NULL)
+		return (free_cmd_path(in_cmd_arr));
 	in_cmd_arr[0] = cmd;
 	return (in_cmd_arr);
 }
@@ -423,6 +452,8 @@ char **set_cmd(char **cmd_path, char **argv, int i)
 	while (cmd_path[c_idx] != NULL)
 	{
 		cmd = ft_strjoin(cmd_path[c_idx], argv[i]);
+		if (cmd == NULL)
+			break ;
 		printf("cmd : %s\n", cmd);
 		if (access(cmd, F_OK) == 0)
 			break ;
@@ -431,9 +462,13 @@ char **set_cmd(char **cmd_path, char **argv, int i)
 	}
 	ica_idx = 0;
 	in_cmd_arr[ica_idx++] = cmd;
+	if (cmd == NULL)
+		return (in_cmd_arr);
 	while (ica_idx < cmd_op_count)
 	{
 		in_cmd_arr[ica_idx] = ft_strdup(argv[i + ica_idx]);
+		if (in_cmd_arr[ica_idx] == NULL)
+			return (free_cmd_path(in_cmd_arr));
 		ica_idx++;
 	}
 	in_cmd_arr[ica_idx] = NULL;
@@ -443,7 +478,6 @@ char **set_cmd(char **cmd_path, char **argv, int i)
 char ***set_cmd_arr(char **cmd_path, char **argv)
 {
 	char ***cmd_arr;
-	char **in_cmd_arr;
 	int cmd_count;
 	int i;
 	int idx;
@@ -462,10 +496,13 @@ char ***set_cmd_arr(char **cmd_path, char **argv)
 		if (argv[i + 1] == NULL)
 			break ;
 		if (find_sp(argv[i]) == 1)
-			cmd_arr[idx++] = set_cmd_sp(in_cmd_arr, cmd_path, argv[i], 0);
+			cmd_arr[idx] = set_cmd_sp(cmd_path, argv[i], 0);
 		else
-			cmd_arr[idx++] = set_cmd(cmd_path, argv, i);
+			cmd_arr[idx] = set_cmd(cmd_path, argv, i);
+		if (cmd_arr[idx] == NULL)
+			ft_error_fn(cmd_path, cmd_arr, NULL);
 		i++;
+		idx++;
 	}
 	cmd_arr[idx] = NULL;
 	return (cmd_arr);
@@ -513,16 +550,18 @@ void setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 	{
 		printf("valid_argv check_ok\n");
 		cmd_arr = set_cmd_arr(cmd_path, argv);
+		if (cmd_arr == NULL)
+			ft_error_fn(cmd_path, cmd_arr, NULL);
 		file1_fd = open(argv[1], O_RDONLY);
 		file2_fd = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
 		ft_pipex(cmd_arr, envp, file1_fd, file2_fd);
+		close(file1_fd);
 		close(file2_fd);
+		free_cmd_path(cmd_path);
 		free_cmd_arr(cmd_arr);
 	}
 	else
-	{
-		// error_fn(cmd_path);
-	}
+		ft_error_fn(cmd_path, NULL, NULL);
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -532,17 +571,13 @@ int main(int argc, char *argv[], char *envp[])
 	if (argc > 3 && count_cmd(argv) >= 2)
 	{
 		if (access(argv[1], F_OK) == -1)
-		{
-			perror(strerror(errno));
-			return (errno);
-		}
+			ft_error_fn(NULL, NULL, NULL);
 		else
 		{
 			cmd_path = set_path2(cmd_path, envp, find_path_idx(envp));
 			if (cmd_path == NULL)
-				return (-1);
+				ft_error_fn(NULL, NULL, NULL);
 			setting_cmd(cmd_path, argc, argv, envp);
-			free_cmd_path(cmd_path);
 		}
 	}
 	else
