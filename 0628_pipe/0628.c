@@ -6,6 +6,43 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 
+void free_cmd_arr(char ***cmd_arr)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (cmd_arr[i] != NULL)
+	{
+		j = 0;
+		while (cmd_arr[i][j] != NULL)
+		{
+			free(cmd_arr[i][j]);
+			cmd_arr[i][j] = NULL;
+			j++;
+		}
+		free(cmd_arr[i]);
+		cmd_arr[i] = NULL;
+		i++;
+	}
+	free(cmd_arr);
+	cmd_arr = NULL;
+}
+
+void free_cmd_path(char **cmd_path)
+{
+	int i;
+
+	i = 0;
+	while (cmd_path[i] != NULL)
+	{
+		free(cmd_path[i]);
+		cmd_path[i] = NULL;
+		i++;
+	}
+	free(cmd_path);
+}
+
 size_t		ft_strlen(const char *str)
 {
 	size_t len;
@@ -207,17 +244,18 @@ char *cut_str(char *str)
 	int j;
 	char *cut_cmd;
 
+	printf("cut_str : %s\n", str);
 	j = 0;
 	while (str[j] == ' ')
 		j++;
 	i = j;
-	while (str[i] != ' ')
+	while (str[i] != ' ' && str[i] != '\0')
 		i++;
-	cut_cmd = (char *)malloc(sizeof(char) * i);
+	cut_cmd = (char *)malloc(sizeof(char) * (i + 1));
 	if (cut_cmd == NULL)
 		return (NULL);
 	i = 0;
-	while (str[i] != ' ')
+	while (str[i] != ' ' && str[i] != '\0')
 	{
 		cut_cmd[i] = str[i];
 		i++;
@@ -345,7 +383,7 @@ char **set_cmd_sp(char **in_cmd_arr, char **cmd_path, char *argv, int i)
 		while (argv[j] == ' ')
 			j++;
 		in_cmd_arr[i] = cut_str(&argv[j]);
-		while (argv[j] != ' ')
+		while (argv[j] != '\0' && argv[j] != ' ')
 			j++;
 		i++;
 	}
@@ -479,6 +517,7 @@ void setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 		file2_fd = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
 		ft_pipex(cmd_arr, envp, file1_fd, file2_fd);
 		close(file2_fd);
+		free_cmd_arr(cmd_arr);
 	}
 	else
 	{
@@ -503,6 +542,7 @@ int main(int argc, char *argv[], char *envp[])
 			if (cmd_path == NULL)
 				return (-1);
 			setting_cmd(cmd_path, argc, argv, envp);
+			free_cmd_path(cmd_path);
 		}
 	}
 	else
