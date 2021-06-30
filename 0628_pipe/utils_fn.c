@@ -1,0 +1,65 @@
+#include "pipex.h"
+
+int find_sp(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == ' ')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int check_with_sp(char **cmd_path, char *str)
+{
+	int i;
+	char *cmd;
+	char *c_cmd;
+
+	c_cmd = cut_str(str);
+	if (c_cmd == NULL)
+		ft_error_fn(cmd_path, NULL, NULL);
+	i = 0;
+	while (cmd_path[i] != NULL)
+	{
+		cmd = ft_strjoin(cmd_path[i], c_cmd);
+		if (cmd == NULL)
+			ft_error_fn(cmd_path, NULL, NULL);
+		if (access(cmd, F_OK) == 0)
+		{
+			free(cmd);
+			free(c_cmd);
+			return (1);
+		}
+		free(cmd);
+		i++;
+	}
+	free(c_cmd);
+	return (0);
+}
+
+int check_without_sp(char **cmd_path, char *str)
+{
+	int i;
+	char *cmd;
+
+	i = 0;
+	while (cmd_path[i] != NULL)
+	{
+		cmd = ft_strjoin(cmd_path[i], str);
+		if (cmd == NULL)
+			ft_error_fn(cmd_path, NULL, NULL);
+		if (access(cmd, F_OK) == 0)
+		{
+			free(cmd);
+			return (1);
+		}
+		free(cmd);
+		i++;
+	}
+	return (0);
+}
