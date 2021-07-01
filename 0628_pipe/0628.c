@@ -197,7 +197,7 @@ char *path_str(char *full_path, int s_idx, int e_idx)
 	int i;
 	char *str;
 
-	str = (char *)malloc(sizeof(char) * (e_idx - s_idx) + 2);
+	str = malloc(sizeof(str) * (e_idx - s_idx) + 2);
 	if (str == NULL)
 		return (NULL);
 	i = 0;
@@ -220,7 +220,7 @@ char **set_path2(char **cmd_path, char **envp, int idx)
 
 	j = 0;
 	i = 0;
-	cmd_path = (char **)malloc(sizeof(char *) * (length_of_path(envp[idx]) + 1));
+	cmd_path = malloc((length_of_path(envp[idx]) + 1) * sizeof *cmd_path);
 	if (cmd_path == NULL)
 		return (NULL);
 	while (envp[idx][i] != '\0')
