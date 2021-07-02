@@ -9,7 +9,7 @@ void	init_pipe(t_pipe *pip, int file1_fd, int file2_fd)
 	pip->fd[1] = 0;
 }
 
-int		ft_child(t_pipe pip, char ***cmd_arr, char **envp)
+void	ft_child(t_pipe pip, char ***cmd_arr, char **envp)
 {
 	dup2(pip.backup_fd, 0);
 	close(pip.backup_fd);
@@ -21,11 +21,7 @@ int		ft_child(t_pipe pip, char ***cmd_arr, char **envp)
 	else
 		dup2(pip.file2_fd, 1);
 	if (execve(cmd_arr[pip.cmd_idx][0], cmd_arr[pip.cmd_idx], envp) == -1)
-	{
-		perror(strerror(errno));
-		return (-1);
-	}
-	return (0);
+		ft_error_fn(NULL, cmd_arr, NULL);
 }
 
 int		ft_pipex(char ***cmd_arr, char **envp, int file1_fd, int file2_fd)
@@ -39,10 +35,7 @@ int		ft_pipex(char ***cmd_arr, char **envp, int file1_fd, int file2_fd)
 		pipe(pip.fd);
 		pid = fork();
 		if (pid == 0)
-		{
-			if (ft_child(pip, cmd_arr, envp) == -1)
-				return (0);
-		}
+			ft_child(pip, cmd_arr, envp);
 		else if (pid > 0)
 		{
 			wait(0);
@@ -50,7 +43,11 @@ int		ft_pipex(char ***cmd_arr, char **envp, int file1_fd, int file2_fd)
 			pip.backup_fd = pip.fd[0];
 		}
 		else
-			return (-1);
+		{
+			close(file1_fd);
+			close(file2_fd);
+			ft_error_fn(NULL, cmd_arr, NULL);
+		}
 		pip.cmd_idx++;
 	}
 	return (0);

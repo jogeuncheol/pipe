@@ -7,7 +7,6 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <sys/wait.h>
-
 # include <stdio.h>
 
 typedef struct	s_pipe
@@ -42,6 +41,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
 void	ft_putendl_fd(char *s, int fd);
 
+int		ft_open(int idx, char **argv, char ***cmd_arr, int file1_fd);
 void	ft_error_fn(char **cmd_path, char ***cmd_arr, char **in_cmd_arr);
 char	**free_cmd_path(char **cmd_path);
 char	***free_cmd_arr(char ***cmd_arr);

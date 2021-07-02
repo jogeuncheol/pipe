@@ -44,16 +44,16 @@ void setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 
 	if (valid_argv(cmd_path, argv) == 1)
 	{
-		printf("valid_argv check_ok\n");
+		//printf("valid_argv check_ok\n");
 		cmd_arr = set_cmd_arr(cmd_path, argv, 0);
 		if (cmd_arr == NULL)
 			ft_error_fn(cmd_path, cmd_arr, NULL);
-		file1_fd = open(argv[1], O_RDONLY);
-		file2_fd = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		free_cmd_path(cmd_path);
+		file1_fd = ft_open(1, argv, cmd_arr, 0);
+		file2_fd = ft_open(argc - 1, argv, cmd_arr, file1_fd);
 		ft_pipex(cmd_arr, envp, file1_fd, file2_fd);
 		close(file1_fd);
 		close(file2_fd);
-		free_cmd_path(cmd_path);
 		free_cmd_arr(cmd_arr);
 	}
 	else

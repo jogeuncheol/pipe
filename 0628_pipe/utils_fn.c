@@ -6,7 +6,7 @@ char *cut_str(char *str)
 	int j;
 	char *cut_cmd;
 
-	printf("cut_str : %s\n", str);
+	//printf("cut_str : %s\n", str);
 	j = 0;
 	while (str[j] == ' ')
 		j++;

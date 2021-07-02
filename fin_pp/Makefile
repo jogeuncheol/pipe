@@ -11,6 +11,7 @@ SRC	=	pipex.c\
 		utils_fn.c\
 		valid_check_fn.c\
 		cmd_arr_fn.c\
+		ft_open.c\
 		error_fn.c
 
 OBJ =	pipex.o\
@@ -22,6 +23,7 @@ OBJ =	pipex.o\
 		utils_fn.o\
 		valid_check_fn.o\
 		cmd_arr_fn.o\
+		ft_open.o\
 		error_fn.o
 
 all : $(NAME)
@@ -30,9 +32,9 @@ $(NAME) : $(OBJ)
 	gcc $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean :
-	rm $(OBJ)
+	rm -f $(OBJ)
 
 fclean : clean
-	rm $(NAME)
+	rm -f $(NAME)
 
 re : fclean all
