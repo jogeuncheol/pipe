@@ -6,7 +6,7 @@
 /*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 18:51:54 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/03 18:59:37 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/03 19:15:47 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strdup(const char *s1);
 void			ft_putendl_fd(char *s, int fd);
+size_t			ft_strlen(const char *str);
 
 int				ft_open(int idx, char **argv, char ***cmd_arr, int file1_fd);
 void			ft_error_fn(char **cmd_path,
