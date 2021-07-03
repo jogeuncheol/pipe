@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setpath_fn.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/03 18:51:26 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/03 19:03:00 by gejo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-int length_of_path(char *envp)
+int		length_of_path(char *envp)
 {
 	int i;
 	int len;
@@ -16,10 +28,10 @@ int length_of_path(char *envp)
 	return (len);
 }
 
-char *path_str(char *full_path, int s_idx, int e_idx)
+char	*path_str(char *full_path, int s_idx, int e_idx)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 
 	str = malloc(sizeof(str) * (e_idx - s_idx) + 2);
 	if (str == NULL)
@@ -35,7 +47,7 @@ char *path_str(char *full_path, int s_idx, int e_idx)
 	return (str);
 }
 
-char **set_path(char **cmd_path, char **envp, int idx)
+char	**set_path(char **cmd_path, char **envp, int idx)
 {
 	int i;
 	int s_idx;
@@ -44,7 +56,7 @@ char **set_path(char **cmd_path, char **envp, int idx)
 
 	j = 0;
 	i = 0;
-	cmd_path = malloc((length_of_path(envp[idx]) + 1) * sizeof *cmd_path);
+	cmd_path = malloc((length_of_path(envp[idx]) + 1) * sizeof(*cmd_path));
 	if (cmd_path == NULL)
 		return (NULL);
 	while (envp[idx][i] != '\0')

@@ -1,9 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gejo <marvin@42.fr>                        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/07/03 18:51:13 by gejo              #+#    #+#              #
+#    Updated: 2021/07/03 19:12:27 by gejo             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME =	pipex
 
-CFLAGS = -g3 -fsanitize=address -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 SRC	=	pipex.c\
-		mlibft.C\
+		putstr_lib.c\
+		string_lib.c\
 		setpath_fn.c\
 		ft_pipex.c\
 		set_cmd_fn.c\
@@ -15,7 +28,8 @@ SRC	=	pipex.c\
 		error_fn.c
 
 OBJ =	pipex.o\
-		mlibft.o\
+		putstr_lib.o\
+		string_lib.o\
 		setpath_fn.o\
 		ft_pipex.o\
 		set_cmd_fn.o\

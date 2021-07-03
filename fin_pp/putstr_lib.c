@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_check_fn.c                                   :+:      :+:    :+:   */
+/*   putstr_lib.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/03 18:52:45 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/03 19:06:30 by gejo             ###   ########.fr       */
+/*   Created: 2021/07/03 19:11:00 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/03 19:13:27 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	valid_argv(char **cmd_path, char **argv)
+size_t	ft_strlen(const char *str)
 {
-	int		i;
-	int		valid_check;
+	size_t len;
 
-	i = 2;
-	while (argv[i + 1] != NULL)
+	len = 0;
+	while (str[len] != '\0')
+		len++;
+	return (len);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	if (s)
+		write(fd, s, ft_strlen(s));
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (s)
 	{
-		valid_check = 0;
-		if (find_sp(argv[i]) == 1)
-			valid_check = check_with_sp(cmd_path, argv[i]);
-		else
-			valid_check = check_without_sp(cmd_path, argv[i]);
-		if (valid_check == 1)
-			i++;
-		else
-			return (0);
-		while (argv[i][0] == '-')
-			i++;
-		if (argv[i] == NULL)
-			break ;
+		ft_putstr_fd(s, fd);
+		write(fd, "\n", 1);
 	}
-	return (1);
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_fn.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/03 18:51:47 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/03 18:54:27 by gejo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-char ***free_cmd_arr(char ***cmd_arr)
+char	***free_cmd_arr(char ***cmd_arr)
 {
 	int i;
 	int j;
@@ -24,7 +36,7 @@ char ***free_cmd_arr(char ***cmd_arr)
 	return (cmd_arr);
 }
 
-char **free_cmd_path(char **cmd_path)
+char	**free_cmd_path(char **cmd_path)
 {
 	int i;
 
@@ -40,7 +52,7 @@ char **free_cmd_path(char **cmd_path)
 	return (cmd_path);
 }
 
-void ft_error_fn(char **cmd_path, char ***cmd_arr, char **in_cmd_arr)
+void	ft_error_fn(char **cmd_path, char ***cmd_arr, char **in_cmd_arr)
 {
 	if (cmd_path != NULL)
 		free_cmd_path(cmd_path);

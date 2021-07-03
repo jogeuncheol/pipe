@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_arr_fn.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/03 18:51:32 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/03 19:02:23 by gejo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-char ***set_cmd_arr(char **cmd_path, char **argv, int idx)
+char	***set_cmd_arr(char **cmd_path, char **argv, int idx)
 {
-	char ***cmd_arr;
-	int count;
-	int i;
+	char	***cmd_arr;
+	int		count;
+	int		i;
 
 	count = count_cmd(argv);
-	cmd_arr = malloc((count + 1) * sizeof **cmd_arr);
+	cmd_arr = malloc((count + 1) * sizeof(**cmd_arr));
 	if (cmd_arr == NULL)
 		return (NULL);
 	i = 1;
