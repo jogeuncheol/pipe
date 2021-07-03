@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_cmd_sp_fn.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/03 18:52:59 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/03 19:03:58 by gejo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-int cmd_option_length(char *argv, int i)
+int		cmd_option_length(char *argv, int i)
 {
 	int len;
 
@@ -14,7 +26,7 @@ int cmd_option_length(char *argv, int i)
 	return (len);
 }
 
-char **set_inner_cmd_sp(char **in_cmd_arr, char *argv, int cmd_op_count)
+char	**set_inner_cmd_sp(char **in_cmd_arr, char *argv, int cmd_op_count)
 {
 	int count;
 	int i;
@@ -36,10 +48,10 @@ char **set_inner_cmd_sp(char **in_cmd_arr, char *argv, int cmd_op_count)
 	return (in_cmd_arr);
 }
 
-char *cmd_full_path(char **cmd_path, char *cmd_argv)
+char	*cmd_full_path(char **cmd_path, char *cmd_argv)
 {
-	int c_idx;
-	char *cmd;
+	int		c_idx;
+	char	*cmd;
 
 	c_idx = 0;
 	while (cmd_path[c_idx] != NULL)
@@ -55,14 +67,14 @@ char *cmd_full_path(char **cmd_path, char *cmd_argv)
 	return (cmd);
 }
 
-char **set_cmd_sp(char **cmd_path, char *argv, int i)
+char	**set_cmd_sp(char **cmd_path, char *argv, int i)
 {
-	char **in_cmd_arr;
-	char *cmd;
-	int cmd_op_count;
+	char	**in_cmd_arr;
+	char	*cmd;
+	int		cmd_op_count;
 
 	cmd_op_count = cmd_option_length(argv, i);
-	in_cmd_arr = malloc((cmd_op_count + 1) * sizeof *in_cmd_arr);
+	in_cmd_arr = malloc((cmd_op_count + 1) * sizeof(*in_cmd_arr));
 	if (in_cmd_arr == NULL)
 		return (NULL);
 	in_cmd_arr = set_inner_cmd_sp(in_cmd_arr, argv, cmd_op_count);

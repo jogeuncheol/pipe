@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_cmd_fn.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/03 18:52:38 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/03 19:01:04 by gejo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-char **set_inner_cmd(char **in_cmd_arr, char **argv, int cmd_op_count, int av_i)
+char
+	**set_inner_cmd(char **in_cmd_arr, char **argv, int cmd_op_count, int av_i)
 {
 	int i;
 
@@ -16,7 +29,8 @@ char **set_inner_cmd(char **in_cmd_arr, char **argv, int cmd_op_count, int av_i)
 	return (in_cmd_arr);
 }
 
-char **set_cmd(char **cmd_path, char **argv, int i)
+char
+	**set_cmd(char **cmd_path, char **argv, int i)
 {
 	char	**in_cmd_arr;
 	char	*cmd;
@@ -25,7 +39,7 @@ char **set_cmd(char **cmd_path, char **argv, int i)
 	cmd_op_count = 1;
 	while (argv[i + cmd_op_count][0] == '-')
 		cmd_op_count++;
-	in_cmd_arr = malloc((cmd_op_count + 1) * sizeof *in_cmd_arr);
+	in_cmd_arr = malloc((cmd_op_count + 1) * sizeof(*in_cmd_arr));
 	if (in_cmd_arr == NULL)
 		return (NULL);
 	in_cmd_arr = set_inner_cmd(in_cmd_arr, argv, cmd_op_count, i);

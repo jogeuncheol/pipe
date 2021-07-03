@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/03 18:51:38 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/03 18:55:57 by gejo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-int count_cmd(char **argv)
+int		count_cmd(char **argv)
 {
 	int i;
 	int count;
@@ -20,7 +32,7 @@ int count_cmd(char **argv)
 	return (count);
 }
 
-int find_path_idx(char **envp)
+int		find_path_idx(char **envp)
 {
 	int		i;
 	char	*path;
@@ -36,7 +48,7 @@ int find_path_idx(char **envp)
 	return (-1);
 }
 
-void setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
+void	setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 {
 	char	***cmd_arr;
 	int		file1_fd;
@@ -44,7 +56,6 @@ void setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 
 	if (valid_argv(cmd_path, argv) == 1)
 	{
-		//printf("valid_argv check_ok\n");
 		cmd_arr = set_cmd_arr(cmd_path, argv, 0);
 		if (cmd_arr == NULL)
 			ft_error_fn(cmd_path, cmd_arr, NULL);
@@ -60,7 +71,7 @@ void setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 		ft_error_fn(cmd_path, NULL, NULL);
 }
 
-int	main(int argc, char *argv[], char *envp[])
+int		main(int argc, char *argv[], char *envp[])
 {
 	char	**cmd_path;
 

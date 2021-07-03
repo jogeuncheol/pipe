@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_fn.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gejo <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/03 18:52:03 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/03 19:08:17 by gejo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-char *cut_str(char *str)
+char	*cut_str(char *str)
 {
-	int i;
-	int j;
-	char *cut_cmd;
+	int		i;
+	int		j;
+	char	*cut_cmd;
 
-	//printf("cut_str : %s\n", str);
 	j = 0;
 	while (str[j] == ' ')
 		j++;
@@ -26,9 +37,9 @@ char *cut_str(char *str)
 	return (cut_cmd);
 }
 
-int find_sp(char *str)
+int		find_sp(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -40,11 +51,11 @@ int find_sp(char *str)
 	return (0);
 }
 
-int check_with_sp(char **cmd_path, char *str)
+int		check_with_sp(char **cmd_path, char *str)
 {
-	int i;
-	char *cmd;
-	char *c_cmd;
+	int		i;
+	char	*cmd;
+	char	*c_cmd;
 
 	c_cmd = cut_str(str);
 	if (c_cmd == NULL)
@@ -68,10 +79,10 @@ int check_with_sp(char **cmd_path, char *str)
 	return (0);
 }
 
-int check_without_sp(char **cmd_path, char *str)
+int		check_without_sp(char **cmd_path, char *str)
 {
-	int i;
-	char *cmd;
+	int		i;
+	char	*cmd;
 
 	i = 0;
 	while (cmd_path[i] != NULL)
