@@ -37,6 +37,27 @@ char	*cut_str(char *str)
 	return (cut_cmd);
 }
 
+char	*cut_str_single_q(char *str)
+{
+	int i;
+	char *cut_cmd;
+
+	i = 0;
+	while (str[i + 1] != '\'')
+		i++;
+	cut_cmd = malloc((i + 1) * sizeof(char));
+	if (cut_cmd == NULL)
+		return (NULL);
+	i = 0;
+	while (str[i + 1] != '\'' && str[i] != '\0')
+	{
+		cut_cmd[i] = str[i + 1];
+		i++;
+	}
+	cut_cmd[i] = '\0';
+	return (cut_cmd);
+}
+
 int		find_sp(char *str)
 {
 	int	i;

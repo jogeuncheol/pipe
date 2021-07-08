@@ -19,6 +19,11 @@ int		cmd_option_length(char *argv, int i)
 	len = 0;
 	while (argv[i] != '\0')
 	{
+		if (argv[i] == '\'')
+		{
+			len++;
+			break ;
+		}
 		if (argv[i] != ' ' && (argv[i + 1] == ' ' || argv[i + 1] == '\0'))
 			len++;
 		i++;
@@ -37,7 +42,10 @@ char	**set_inner_cmd_sp(char **in_cmd_arr, char *argv, int cmd_op_count)
 	{
 		while (argv[i] == ' ')
 			i++;
-		in_cmd_arr[count] = cut_str(&argv[i]);
+		if (argv[i] == '\'')
+			in_cmd_arr[count] = cut_str_single_q(&argv[i]);
+		else
+			in_cmd_arr[count] = cut_str(&argv[i]);
 		if (in_cmd_arr[count] == NULL)
 			return (free_cmd_path(in_cmd_arr));
 		while (argv[i] != '\0' && argv[i] != ' ')
