@@ -18,9 +18,13 @@ int	valid_argv(char **cmd_path, char **argv)
 	int		valid_check;
 
 	i = 2;
-	while (argv[i + 1] != NULL)
+	while (argv[i] != NULL && argv[i + 1] != NULL)
 	{
 		valid_check = 0;
+		while (argv[i][0] == '-')
+			i++;
+		if (argv[i + 1] == NULL)
+			break;
 		if (find_sp(argv[i]) == 1)
 			valid_check = check_with_sp(cmd_path, argv[i]);
 		else
@@ -29,10 +33,6 @@ int	valid_argv(char **cmd_path, char **argv)
 			i++;
 		else
 			return (0);
-		while (argv[i][0] == '-')
-			i++;
-		if (argv[i] == NULL)
-			break ;
 	}
 	return (1);
 }

@@ -37,7 +37,7 @@ char
 	int		cmd_op_count;
 
 	cmd_op_count = 1;
-	while (argv[i + cmd_op_count][0] == '-')
+	while (argv[i + cmd_op_count + 1] != NULL && argv[i + cmd_op_count][0] == '-')
 		cmd_op_count++;
 	in_cmd_arr = malloc((cmd_op_count + 1) * sizeof(*in_cmd_arr));
 	if (in_cmd_arr == NULL)
