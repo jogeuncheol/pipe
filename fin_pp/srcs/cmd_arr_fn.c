@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 char	***set_cmd_arr(char **cmd_path, char **argv, int idx)
 {

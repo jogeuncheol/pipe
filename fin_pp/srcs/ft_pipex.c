@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 void	init_pipe(t_pipe *pip, int file1_fd, int file2_fd)
 {

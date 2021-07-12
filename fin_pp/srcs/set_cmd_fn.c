@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 char
 	**set_inner_cmd(char **in_cmd_arr, char **argv, int cmd_op_count, int av_i)

@@ -14,39 +14,81 @@ NAME =	pipex
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC	=	pipex.c\
-		putstr_lib.c\
-		string_lib.c\
-		setpath_fn.c\
-		ft_pipex.c\
-		set_cmd_fn.c\
-		set_cmd_sp_fn.c\
-		utils_fn.c\
-		valid_check_fn.c\
-		cmd_arr_fn.c\
-		ft_open.c\
-		error_fn.c
+SRC_DIR = srcs
 
-OBJ =	pipex.o\
-		putstr_lib.o\
-		string_lib.o\
-		setpath_fn.o\
-		ft_pipex.o\
-		set_cmd_fn.o\
-		set_cmd_sp_fn.o\
-		utils_fn.o\
-		valid_check_fn.o\
-		cmd_arr_fn.o\
-		ft_open.o\
-		error_fn.o
+SRC_B_DIR = srcs_b
+
+BONUS_HIDE = .bonus
+
+INCLUDE = include
+
+SRC	=	$(SRC_DIR)/pipex.c\
+		$(SRC_DIR)/putstr_lib.c\
+		$(SRC_DIR)/string_lib.c\
+		$(SRC_DIR)/setpath_fn.c\
+		$(SRC_DIR)/ft_pipex.c\
+		$(SRC_DIR)/set_cmd_fn.c\
+		$(SRC_DIR)/set_cmd_sp_fn.c\
+		$(SRC_DIR)/utils_fn.c\
+		$(SRC_DIR)/valid_check_fn.c\
+		$(SRC_DIR)/cmd_arr_fn.c\
+		$(SRC_DIR)/ft_open.c\
+		$(SRC_DIR)/error_fn.c
+
+OBJ =	$(SRC_DIR)/pipex.o\
+		$(SRC_DIR)/putstr_lib.o\
+		$(SRC_DIR)/string_lib.o\
+		$(SRC_DIR)/setpath_fn.o\
+		$(SRC_DIR)/ft_pipex.o\
+		$(SRC_DIR)/set_cmd_fn.o\
+		$(SRC_DIR)/set_cmd_sp_fn.o\
+		$(SRC_DIR)/utils_fn.o\
+		$(SRC_DIR)/valid_check_fn.o\
+		$(SRC_DIR)/cmd_arr_fn.o\
+		$(SRC_DIR)/ft_open.o\
+		$(SRC_DIR)/error_fn.o
+
+SRC_B = $(SRC_B_DIR)/pipex_bonus.c\
+		$(SRC_B_DIR)/putstr_lib_bonus.c\
+		$(SRC_B_DIR)/string_lib_bonus.c\
+		$(SRC_B_DIR)/setpath_fn_bonus.c\
+		$(SRC_B_DIR)/ft_pipex_bonus.c\
+		$(SRC_B_DIR)/set_cmd_fn_bonus.c\
+		$(SRC_B_DIR)/set_cmd_sp_fn_bonus.c\
+		$(SRC_B_DIR)/utils_fn_bonus.c\
+		$(SRC_B_DIR)/valid_check_fn_bonus.c\
+		$(SRC_B_DIR)/cmd_arr_fn_bonus.c\
+		$(SRC_B_DIR)/ft_open_bonus.c\
+		$(SRC_B_DIR)/error_fn_bonus.c
+
+OBJ_B =	$(SRC_B_DIR)/pipex_bonus.o\
+		$(SRC_B_DIR)/putstr_lib_bonus.o\
+		$(SRC_B_DIR)/string_lib_bonus.o\
+		$(SRC_B_DIR)/setpath_fn_bonus.o\
+		$(SRC_B_DIR)/ft_pipex_bonus.o\
+		$(SRC_B_DIR)/set_cmd_fn_bonus.o\
+		$(SRC_B_DIR)/set_cmd_sp_fn_bonus.o\
+		$(SRC_B_DIR)/utils_fn_bonus.o\
+		$(SRC_B_DIR)/valid_check_fn_bonus.o\
+		$(SRC_B_DIR)/cmd_arr_fn_bonus.o\
+		$(SRC_B_DIR)/ft_open_bonus.o\
+		$(SRC_B_DIR)/error_fn_bonus.o
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	gcc $(CFLAGS) -o $(NAME) $(OBJ)
+	rm -f $(OBJ_B) $(BONUS_HIDE)
+	gcc $(CFLAGS) -L./$(INCLUDE)/pipex.h -o $(NAME) $(OBJ)
+
+bonus : $(BONUS_HIDE)
+
+$(BONUS_HIDE) : $(OBJ_B)
+	touch $(BONUS_HIDE)
+	rm -f $(OBJ)
+	gcc $(CFLAGS) -L./$(INCLUDE)/pipex_bonus.h -o $(NAME) $(OBJ_B)
 
 clean :
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(OBJ_B) $(BONUS_HIDE)
 
 fclean : clean
 	rm -f $(NAME)
