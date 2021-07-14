@@ -78,14 +78,14 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	rm -f $(OBJ_B) $(BONUS_HIDE)
-	gcc $(CFLAGS) -L./$(INCLUDE)/pipex.h -o $(NAME) $(OBJ)
+	gcc $(CFLAGS) -L./$(INCLUDE) -o $(NAME) $(OBJ)
 
 bonus : $(BONUS_HIDE)
 
 $(BONUS_HIDE) : $(OBJ_B)
 	touch $(BONUS_HIDE)
 	rm -f $(OBJ)
-	gcc $(CFLAGS) -L./$(INCLUDE)/pipex_bonus.h -o $(NAME) $(OBJ_B)
+	gcc $(CFLAGS) -L./$(INCLUDE) -o $(NAME) $(OBJ_B)
 
 clean :
 	rm -f $(OBJ) $(OBJ_B) $(BONUS_HIDE)
