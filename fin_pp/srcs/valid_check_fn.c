@@ -24,7 +24,7 @@ int	valid_argv(char **cmd_path, char **argv)
 		while (argv[i][0] == '-')
 			i++;
 		if (argv[i + 1] == NULL)
-			break;
+			break ;
 		if (find_sp(argv[i]) == 1)
 			valid_check = check_with_sp(cmd_path, argv[i]);
 		else

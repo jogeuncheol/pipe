@@ -49,7 +49,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	else if (s1 != NULL && s2 == NULL)
 		return (ft_strdup(s1));
 	len = ft_strlen(s1) + ft_strlen(s2);
-	if (!(ptr = malloc((len + 1) * sizeof(ptr))))
+	ptr = malloc((len + 1) * sizeof(ptr));
+	if (ptr == NULL)
 		return (NULL);
 	while (*s1 != '\0')
 		*(ptr + i++) = *(s1++);
@@ -59,7 +60,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (ptr);
 }
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	while (n > 0 && *s1 != '\0' && *s2 != '\0')
 	{

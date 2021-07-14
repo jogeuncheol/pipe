@@ -36,7 +36,7 @@ void	ft_child(t_pipe pip, char ***cmd_arr, char **envp)
 		ft_error_fn(NULL, cmd_arr, NULL);
 }
 
-int		ft_pipex(char ***cmd_arr, char **envp, int file1_fd, int file2_fd)
+int	ft_pipex(char ***cmd_arr, char **envp, int file1_fd, int file2_fd)
 {
 	t_pipe	pip;
 	pid_t	pid;

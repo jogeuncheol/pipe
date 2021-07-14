@@ -12,9 +12,9 @@
 
 #include "../include/pipex.h"
 
-int		cmd_option_length(char *argv, int i)
+int	cmd_option_length(char *argv, int i)
 {
-	int len;
+	int		len;
 
 	len = 0;
 	while (argv[i] != '\0')
@@ -33,8 +33,8 @@ int		cmd_option_length(char *argv, int i)
 
 char	**set_inner_cmd_sp(char **in_cmd_arr, char *argv, int cmd_op_count)
 {
-	int count;
-	int i;
+	int		count;
+	int		i;
 
 	count = 0;
 	i = 0;

@@ -12,9 +12,9 @@
 
 #include "../include/pipex.h"
 
-int		ft_open(int idx, char **argv, char ***cmd_arr, int file1_fd)
+int	ft_open(int idx, char **argv, char ***cmd_arr, int file1_fd)
 {
-	int fd;
+	int		fd;
 
 	if (idx == 1)
 		fd = open(argv[idx], O_RDONLY);

@@ -39,8 +39,8 @@ char	*cut_str(char *str)
 
 char	*cut_str_single_q(char *str)
 {
-	int i;
-	char *cut_cmd;
+	int		i;
+	char	*cut_cmd;
 
 	i = 0;
 	while (str[i + 1] != '\'')
@@ -58,9 +58,9 @@ char	*cut_str_single_q(char *str)
 	return (cut_cmd);
 }
 
-int		find_sp(char *str)
+int	find_sp(char *str)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -72,7 +72,7 @@ int		find_sp(char *str)
 	return (0);
 }
 
-int		check_with_sp(char **cmd_path, char *str)
+int	check_with_sp(char **cmd_path, char *str)
 {
 	int		i;
 	char	*cmd;
@@ -100,7 +100,7 @@ int		check_with_sp(char **cmd_path, char *str)
 	return (0);
 }
 
-int		check_without_sp(char **cmd_path, char *str)
+int	check_without_sp(char **cmd_path, char *str)
 {
 	int		i;
 	char	*cmd;

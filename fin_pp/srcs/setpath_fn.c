@@ -12,10 +12,10 @@
 
 #include "../include/pipex.h"
 
-int		length_of_path(char *envp)
+int	length_of_path(char *envp)
 {
-	int i;
-	int len;
+	int		i;
+	int		len;
 
 	i = 0;
 	len = 1;
@@ -49,10 +49,10 @@ char	*path_str(char *full_path, int s_idx, int e_idx)
 
 char	**set_path(char **cmd_path, char **envp, int idx)
 {
-	int i;
-	int s_idx;
-	int e_idx;
-	int j;
+	int		i;
+	int		s_idx;
+	int		e_idx;
+	int		j;
 
 	j = 0;
 	i = 0;

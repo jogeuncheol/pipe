@@ -12,10 +12,10 @@
 
 #include "../include/pipex.h"
 
-int		count_cmd(char **argv)
+int	count_cmd(char **argv)
 {
-	int i;
-	int count;
+	int		i;
+	int		count;
 
 	i = 2;
 	count = 0;
@@ -32,7 +32,7 @@ int		count_cmd(char **argv)
 	return (count);
 }
 
-int		find_path_idx(char **envp)
+int	find_path_idx(char **envp)
 {
 	int		i;
 	char	*path;
@@ -71,7 +71,7 @@ void	setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 		ft_error_fn(cmd_path, NULL, NULL);
 }
 
-int		main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	char	**cmd_path;
 

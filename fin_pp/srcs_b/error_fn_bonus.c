@@ -14,8 +14,8 @@
 
 char	***free_cmd_arr(char ***cmd_arr)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (cmd_arr[i] != NULL)
@@ -38,7 +38,7 @@ char	***free_cmd_arr(char ***cmd_arr)
 
 char	**free_cmd_path(char **cmd_path)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (cmd_path[i] != NULL)
