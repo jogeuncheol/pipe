@@ -5,7 +5,7 @@ char	**ft_set_inner_cmd(char **in_cmd_arr, char **argv, int cmd_op_count, int i)
 	int		idx;
 
 	idx = 0;
-	while (i < cmd_op_count)
+	while (idx < cmd_op_count)
 	{
 		in_cmd_arr[idx] = ft_strdup(argv[i + idx]);
 		if (in_cmd_arr[idx] == NULL)
@@ -13,7 +13,7 @@ char	**ft_set_inner_cmd(char **in_cmd_arr, char **argv, int cmd_op_count, int i)
 			ft_free_cmd_path(in_cmd_arr);
 			return (NULL);
 		}
-		i++;
+		idx++;
 	}
 	in_cmd_arr[idx] = NULL;
 	return (in_cmd_arr);
