@@ -1,6 +1,7 @@
 #include "../include/pipex.h"
 
-char	**ft_set_inner_cmd(char **in_cmd_arr, char **argv, int cmd_op_count, int i)
+char	**ft_set_inner_cmd(char **in_cmd_arr,
+		char **argv, int cmd_op_count, int i)
 {
 	int		idx;
 
@@ -27,9 +28,9 @@ char	**ft_set_cmd_without_sp(char **cmd_path, char **argv, int i)
 
 	cmd_op_count = 1;
 	while (argv[i + cmd_op_count + 1] != NULL
-			&& argv[i + cmd_op_count][0] == '-')
+		&& argv[i + cmd_op_count][0] == '-')
 		cmd_op_count++;
-	in_cmd_arr = malloc((cmd_op_count + 1) * sizeof(char*));
+	in_cmd_arr = malloc((cmd_op_count + 1) * sizeof(char *));
 	if (in_cmd_arr == NULL)
 		return (NULL);
 	in_cmd_arr = ft_set_inner_cmd(in_cmd_arr, argv, cmd_op_count, i);

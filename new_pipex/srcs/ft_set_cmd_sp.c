@@ -7,7 +7,7 @@ int	ft_cmd_option_length(char *argv, int i)
 	len = 0;
 	while (argv[i] != '\0')
 	{
-		if (argv[i] == '\'')
+		if (argv[i] == '\'' || argv[i] == '\"')
 		{
 			len++;
 			break ;
@@ -30,8 +30,8 @@ char	**ft_set_inner_cmd_sp(char **in_cmd_arr, char *argv, int cmd_op_count)
 	{
 		while (argv[i] == ' ')
 			i++;
-		if (argv[i] == '\'')
-			in_cmd_arr[count] = ft_cut_str_single_q(&argv[i]);
+		if (argv[i] == '\'' || argv[i] == '\"')
+			in_cmd_arr[count] = ft_cut_str_quote(&argv[i], argv[i]);
 		else
 			in_cmd_arr[count] = ft_cut_str(&argv[i]);
 		if (in_cmd_arr[count] == NULL)
@@ -61,6 +61,7 @@ char	*ft_cmd_full_path(char **cmd_path, char *cmd_argv)
 		if (access(cmd, F_OK) == 0)
 			break ;
 		free(cmd);
+		cmd = NULL;
 		c_idx++;
 	}
 	return (cmd);

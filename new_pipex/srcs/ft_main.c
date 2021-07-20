@@ -51,7 +51,7 @@ void	ft_setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 	ft_pipex(cmd_arr, envp, file1_fd, file2_fd);
 	close(file1_fd);
 	close(file2_fd);
-	ft_free_cmd_arr(cmd_arr);
+	exit(0);
 }
 
 int	main(int argc, char *argv[], char *envp[])

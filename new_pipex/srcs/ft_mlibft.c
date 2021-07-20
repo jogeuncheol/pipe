@@ -43,10 +43,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	int		i;
 
 	i = 0;
-	len = 0;
-	if (s1 == NULL && s2 == NULL)
-		return (NULL);
-	else if (s1 == NULL && s2 != NULL)
+	if (s1 == NULL && s2 != NULL)
 		return (ft_strdup(s2));
 	else if (s1 != NULL && s2 == NULL)
 		return (ft_strdup(s1));
