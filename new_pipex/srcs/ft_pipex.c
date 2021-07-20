@@ -29,7 +29,11 @@ void	ft_child(t_pipe pip, char ***cmd_arr, char **envp)
 			close(pip.fd[1]);
 		}
 		else
+		{
 			dup2(pip.file2_fd, 1);
+			close(pip.fd[1]);
+			close(pip.file2_fd);
+		}
 	}
 	if (execve(cmd_arr[pip.cmd_idx][0], cmd_arr[pip.cmd_idx], envp) == -1)
 		exit(1);
