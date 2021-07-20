@@ -9,14 +9,17 @@ char	**ft_set_inner_cmd(char **in_cmd_arr, char **argv, int cmd_op_count, int i)
 	{
 		in_cmd_arr[idx] = ft_strdup(argv[i + idx]);
 		if (in_cmd_arr[idx] == NULL)
-			return (ft_free_cmd_path(in_cmd_arr));
+		{
+			ft_free_cmd_path(in_cmd_arr);
+			return (NULL);
+		}
 		i++;
 	}
 	in_cmd_arr[idx] = NULL;
 	return (in_cmd_arr);
 }
 
-char	**set_cmd(char **cmd_path, char **argv, int i)
+char	**set_cmd_without_sp(char **cmd_path, char **argv, int i)
 {
 	char	**in_cmd_arr;
 	char	*cmd;
@@ -32,9 +35,12 @@ char	**set_cmd(char **cmd_path, char **argv, int i)
 	in_cmd_arr = ft_set_inner_cmd(in_cmd_arr, argv, cmd_op_count, i);
 	if (in_cmd_arr == NULL)
 		return (NULL);
-	cmd = cmd_full_path(cmd_path, in_cmd_arr[0]);
+	cmd = ft_cmd_full_path(cmd_path, in_cmd_arr[0]);
 	if (cmd == NULL)
-		return (ft_free_cmd_path(in_cmd_arr));
+	{
+		ft_free_cmd_path(in_cmd_arr);
+		return (NULL);
+	}
 	free(in_cmd_arr[0]);
 	in_cmd_arr[0] = cmd;
 	return (in_cmd_arr);

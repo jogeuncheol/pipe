@@ -35,7 +35,10 @@ char	**ft_set_inner_cmd_sp(char **in_cmd_arr, char *argv, int cmd_op_count)
 		else
 			in_cmd_arr[count] = ft_cut_str(&argv[i]);
 		if (in_cmd_arr[count] == NULL)
-			return (free_cmd_path(in_cmd_arr));
+		{
+			ft_free_cmd_path(in_cmd_arr);
+			return (NULL);
+		}
 		while (argv[i] != '\0' && argv[i] != ' ')
 			i++;
 		count++;
@@ -78,7 +81,10 @@ char	**ft_set_cmd_width_sp(char **cmd_path, char *argv, int i)
 		return (NULL);
 	cmd = ft_cmd_full_path(cmd_path, in_cmd_arr[0]);
 	if (cmd == NULL)
-		return (ft_free_cmd_path(in_cmd_arr));
+	{
+		ft_free_cmd_path(in_cmd_arr);
+		return (NULL);
+	}
 	free(in_cmd_arr[0]);
 	in_cmd_arr[0] = cmd;
 	return (in_cmd_arr);

@@ -6,7 +6,7 @@ char	***ft_set_cmd_arr(char **cmd_path, char **argv, int idx)
 	int		count;
 	int		i;
 
-	count = count_cmd(argv);
+	count = ft_count_cmd(argv);
 	cmd_arr = malloc((count + 1) * sizeof(char **));
 	if (cmd_arr == NULL)
 		return (NULL);
@@ -17,10 +17,10 @@ char	***ft_set_cmd_arr(char **cmd_path, char **argv, int idx)
 			i++;
 		if (argv[i + 1] == NULL)
 			break ;
-		if (find_sp(argv[i]) == 1)
+		if (ft_find_sp(argv[i]) == 1)
 			cmd_arr[idx] = ft_set_cmd_with_sp(cmd_path, argv[i], 0);
 		else
-			cmd_arr[idx] = ft_set_cmd_without_sp(cmd_path, , argv, i);
+			cmd_arr[idx] = ft_set_cmd_without_sp(cmd_path, argv, i);
 		if (cmd_arr[idx] == NULL)
 			ft_error(cmd_path, cmd_arr);
 		idx++;

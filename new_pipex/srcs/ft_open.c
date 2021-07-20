@@ -7,7 +7,7 @@ int	ft_open(int idx, char **argv, char ***cmd_arr, int file1_fd)
 	if (idx == 1)
 		fd = open(argv[idx], O_RDONLY);
 	else
-		fd = open(argv[idx], O_RDWR | O_CREATE | O_TRUNC, 0644);
+		fd = open(argv[idx], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
 		if (idx != 1)

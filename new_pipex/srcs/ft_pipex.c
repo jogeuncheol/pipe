@@ -19,7 +19,7 @@ void	ft_child(t_pipe pip, char ***cmd_arr, char **envp)
 		close(pip.fd[1]);
 	}
 	else
-		dup(pip.file2_fd, 1);
+		dup2(pip.file2_fd, 1);
 	if (execve(cmd_arr[pip.cmd_idx][0], cmd_arr[pip.cmd_idx], envp) == -1)
 		ft_error(NULL, cmd_arr);
 }
@@ -35,7 +35,7 @@ void	ft_pipex(char ***cmd_arr, char **envp, int file1_fd, int file2_fd)
 	t_pipe	pip;
 	pid_t	pid;
 
-	ft_pipe(&pip, file1_fd, file2_fd);
+	ft_init_pipe(&pip, file1_fd, file2_fd);
 	while (cmd_arr[pip.cmd_idx] != NULL)
 	{
 		pipe(pip.fd);

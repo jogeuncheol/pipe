@@ -6,7 +6,7 @@ int	ft_length_of_path(char *envp)
 	int		len;
 
 	i = 0;
-	len 1;
+	len = 1;
 	while (envp[i] != '\0')
 	{
 		if (envp[i] == ':')
@@ -51,7 +51,7 @@ char	**ft_set_path(char **cmd_path, char **envp, int idx)
 	{
 		while (envp[idx][i] != '/')
 			i++;
-		s_idx;
+		s_idx = i;
 		while (envp[idx][i] != '\0' && envp[idx][i] != ':')
 			i++;
 		e_idx = i;
