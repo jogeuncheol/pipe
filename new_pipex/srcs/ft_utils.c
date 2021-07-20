@@ -25,19 +25,19 @@ char	*ft_cut_str(char *str)
 	return (cut_cmd);
 }
 
-char	*ft_cut_str_quote(char *str, char q)
+char	*ft_cut_str_quote(char *str, char quote)
 {
 	int		i;
 	char	*cut_cmd;
 
 	i = 0;
-	while (str[i + 1] == q)
+	while (str[i + 1] != quote)
 		i++;
 	cut_cmd = malloc((i + 1) * sizeof(char));
 	if (cut_cmd == NULL)
 		return (NULL);
 	i = 0;
-	while (str[i + 1] != q && str[i + 1] != '\0')
+	while (str[i + 1] != quote && str[i + 1] != '\0')
 	{
 		cut_cmd[i] = str[i + 1];
 		i++;
