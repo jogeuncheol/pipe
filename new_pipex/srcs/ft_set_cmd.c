@@ -19,7 +19,7 @@ char	**ft_set_inner_cmd(char **in_cmd_arr, char **argv, int cmd_op_count, int i)
 	return (in_cmd_arr);
 }
 
-char	**set_cmd_without_sp(char **cmd_path, char **argv, int i)
+char	**ft_set_cmd_without_sp(char **cmd_path, char **argv, int i)
 {
 	char	**in_cmd_arr;
 	char	*cmd;

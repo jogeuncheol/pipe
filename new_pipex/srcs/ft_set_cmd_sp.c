@@ -66,7 +66,7 @@ char	*ft_cmd_full_path(char **cmd_path, char *cmd_argv)
 	return (cmd);
 }
 
-char	**ft_set_cmd_width_sp(char **cmd_path, char *argv, int i)
+char	**ft_set_cmd_with_sp(char **cmd_path, char *argv, int i)
 {
 	char	**in_cmd_arr;
 	char	*cmd;
