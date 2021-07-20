@@ -46,11 +46,7 @@ void	ft_setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 	if (cmd_arr == NULL)
 		ft_error(cmd_path, cmd_arr);
 	file1_fd = ft_open(1, argv, cmd_arr, 0);
-	if (file1_fd == -1)
-		ft_error(cmd_path, cmd_arr);
 	file2_fd = ft_open(argv - 1, argv, cmd_arr, file1_fd);
-	if (file2_fd == -1)
-		ft_error(cmd_path, cmd_arr);
 	free_cmd_path(cmd_path);
 	ft_pipex(cmd_arr, envp, file1_fd, file2_fd);
 	close(file1_fd);
