@@ -46,7 +46,9 @@ void	ft_setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 	if (cmd_arr == NULL)
 		ft_error(cmd_path, cmd_arr);
 	file1_fd = ft_open(1, argv, cmd_arr, 0);
+	printf("fd1 : %d\n", file1_fd);
 	file2_fd = ft_open(argc - 1, argv, cmd_arr, file1_fd);
+	printf("fd2 : %d\n", file2_fd);
 	ft_free_cmd_path(cmd_path);
 	ft_pipex(cmd_arr, envp, file1_fd, file2_fd);
 	close(file1_fd);
@@ -61,15 +63,10 @@ int	main(int argc, char *argv[], char *envp[])
 	cmd_path = NULL;
 	if (argc > 3 && ft_count_cmd(argv) >= 2)
 	{
-		if (access(argv[1], F_OK) == -1)
+		cmd_path = ft_set_path(cmd_path, envp, ft_find_path_idx(envp));
+		if (cmd_path == NULL)
 			ft_error(NULL, NULL);
-		else
-		{
-			cmd_path = ft_set_path(cmd_path, envp, ft_find_path_idx(envp));
-			if (cmd_path == NULL)
-				ft_error(NULL, NULL);
-			ft_setting_cmd(cmd_path, argc, argv, envp);
-		}
+		ft_setting_cmd(cmd_path, argc, argv, envp);
 	}
 	else
 	{
