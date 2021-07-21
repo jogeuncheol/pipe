@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:44 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/21 16:55:27 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/21 18:45:33 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ char	***ft_free_cmd_arr(char ***cmd_arr)
 	while (cmd_arr[i] != NULL)
 	{
 		j = 0;
-		if (access(cmd_arr[i][0], F_OK) != 0)
-			j++;
 		while (cmd_arr[i][j] != NULL)
 		{
 			free(cmd_arr[i][j]);

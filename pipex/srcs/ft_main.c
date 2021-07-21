@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:35 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/21 16:59:42 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/21 18:59:34 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,19 @@ void	ft_setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	**cmd_path;
+	int		path_idx;
 
 	cmd_path = NULL;
+	path_idx = 0;
 	if (argc > 3 && ft_count_cmd(argv) >= 2)
 	{
-		cmd_path = ft_set_path(cmd_path, envp, ft_find_path_idx(envp));
+		path_idx = ft_find_path_idx(envp);
+		if (path_idx == -1)
+		{
+			ft_putstr_fd("PATH not found : check environment\n", 2);
+			return (1);
+		}
+		cmd_path = ft_set_path(cmd_path, envp, path_idx);
 		if (cmd_path == NULL)
 			ft_error(NULL, NULL);
 		ft_setting_cmd(cmd_path, argc, argv, envp);
@@ -81,7 +89,7 @@ int	main(int argc, char *argv[], char *envp[])
 	else
 	{
 		ft_putstr_fd("Usage : ./pipex input_file cmd1 cmd2 output_file", 2);
-		return (2);
+		return (1);
 	}
 	return (0);
 }
