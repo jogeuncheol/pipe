@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/21 02:31:14 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/21 02:32:14 by gejo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/pipex.h"
 
 char	*ft_cut_str(char *str)
@@ -46,7 +58,6 @@ char	*ft_cut_str_quote(char *str, char quote)
 	return (cut_cmd);
 }
 
-
 char	*ft_cut_str_single_q(char *str)
 {
 	int		i;
@@ -64,7 +75,7 @@ char	*ft_cut_str_single_q(char *str)
 		return (NULL);
 	i = 0;
 	while (str[j + i] != '\'' && str[j + i] != '\"'
-			&& str[j + i] != '\0')
+		&& str[j + i] != '\0')
 	{
 		cut_cmd[i] = str[j + i];
 		i++;

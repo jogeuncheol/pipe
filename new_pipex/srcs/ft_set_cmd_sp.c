@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_set_cmd_sp.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/21 02:31:44 by gejo              #+#    #+#             */
+/*   Updated: 2021/07/21 15:12:08 by gejo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/pipex.h"
 
 int	ft_cmd_option_length(char *argv, int i)
@@ -61,7 +73,6 @@ char	*ft_cmd_full_path(char **cmd_path, char *cmd_argv)
 		if (access(cmd, F_OK) == 0)
 			break ;
 		free(cmd);
-		cmd = NULL;
 		c_idx++;
 	}
 	return (cmd);
