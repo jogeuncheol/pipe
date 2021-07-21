@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:35 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/21 02:30:37 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/21 16:59:42 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 	ft_pipex(cmd_arr, envp, file1_fd, file2_fd);
 	close(file1_fd);
 	close(file2_fd);
-	exit(0);
+	ft_free_cmd_arr(cmd_arr);
 }
 
 int	main(int argc, char *argv[], char *envp[])

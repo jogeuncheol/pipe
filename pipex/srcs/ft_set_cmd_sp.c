@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:31:44 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/21 02:31:47 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/21 18:29:57 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ char	*ft_cmd_full_path(char **cmd_path, char *cmd_argv)
 			return (NULL);
 		if (access(cmd, F_OK) == 0)
 			break ;
+		if (cmd_path[c_idx + 1] == NULL)
+			break ;
 		free(cmd);
-		cmd = NULL;
 		c_idx++;
 	}
 	return (cmd);

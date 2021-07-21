@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:25 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/21 02:30:28 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/21 18:33:04 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_pipe
 	int	backup_fd;
 	int	cmd_idx;
 	int	file2_fd;
-	int	process_exit;
 }		t_pipe;
 
 int		ft_count_cmd(char **argv);
@@ -40,6 +39,7 @@ char	*ft_cmd_full_path(char **cmd_path, char *cmd_argv);
 char	*ft_cut_str_single_q(char *str);
 char	*ft_cut_str_quote(char *str, char q);
 char	*ft_cut_str(char *str);
+char	*ft_print_cmd_name(char *str);
 int		ft_find_sp(char *str);
 
 size_t	ft_strlen(const char *str);

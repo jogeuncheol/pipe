@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:31:14 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/21 02:32:14 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/21 18:32:51 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,16 @@ int	ft_find_sp(char	*str)
 		i++;
 	}
 	return (0);
+}
+
+char	*ft_print_cmd_name(char *cmd)
+{
+	int		i;
+
+	i = 0;
+	while (cmd[i] != '\0')
+		i++;
+	while (cmd[i - 1] != '/')
+		i--;
+	return (&cmd[i]);
 }
