@@ -27,6 +27,7 @@ typedef struct s_pipe
 	int	backup_fd;
 	int	cmd_idx;
 	int	file2_fd;
+	int	cmd_count;
 }		t_pipe;
 
 int		ft_count_cmd(char **argv);
