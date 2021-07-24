@@ -46,6 +46,7 @@ void	ft_input_open_fail(t_pipe pip, char ***cmd_arr)
 	}
 	else
 	{
+		close(pip.fd[1]);
 		dup2(pip.fd[0], 0);
 		close(pip.fd[0]);
 		dup2(pip.file2_fd, 1);
@@ -95,20 +96,13 @@ void	ft_pipex(char ***cmd_arr, char **envp, int file1_fd, int file2_fd)
 			ft_error(NULL, NULL);
 		if (pip.backup_fd == -1 && pip.cmd_count > 2)
 			pipe(pip.fd2);
-		if (pip.backup_fd == -1 && pip.cmd_count == 2)
-			close(pip.fd[1]);
+//		if (pip.backup_fd == -1 && pip.cmd_count == 2)
+//			close(pip.fd[1]);
 		pid = fork();
 		if (pid == 0)
 			ft_child(pip, cmd_arr, envp);
 		else if (pid > 0)
 		{
-			// close(pip.fd[1]);
-			// close(pip.fd2[1]);
-			// printf("close fd[1], fd2[1]\n");
-			// // if (pip.backup_fd == -1)
-			// // 	close(pip.fd2[1]);
-			// // else
-			// // 	close(pip.fd[1]);
 			if (pip.backup_fd == -1 && pip.cmd_count > 2)
 			{
 				close(pip.fd[0]);
