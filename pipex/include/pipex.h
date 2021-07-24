@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+        */
+/*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:25 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/21 20:08:11 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/23 23:39:14 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_pipe
 {
 	int	fd[2];
+	int	fd2[2];
 	int	backup_fd;
 	int	cmd_idx;
 	int	file2_fd;
