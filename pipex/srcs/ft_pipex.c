@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:50 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/24 16:49:31 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/24 17:14:52 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_pipex(char ***cmd_arr, char **envp, int file1_fd, int file2_fd)
 			{
 				close(pip.fd[1]);
 			}
-			waitpid(pid, &status, 0);
+			waitpid(pid, &status, WNOHANG);
 			if (pip.backup_fd == -1 && pip.cmd_count > 2)
 				pip.backup_fd = pip.fd2[0];
 			else
