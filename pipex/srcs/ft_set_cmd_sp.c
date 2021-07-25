@@ -75,6 +75,7 @@ char	*ft_cmd_full_path(char **cmd_path, char *cmd_argv)
 		if (cmd_path[c_idx + 1] == NULL)
 			break ;
 		free(cmd);
+		cmd = NULL;
 		c_idx++;
 	}
 	return (cmd);
