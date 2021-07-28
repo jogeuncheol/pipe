@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:50 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/28 16:16:18 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/28 16:24:02 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,9 @@ void	ft_pipex(char ***cmd_arr, char **envp, int file1_fd, int file2_fd)
 			printf("fil1 %d file2 %d fd[0] %d fd[1] %d\n", file1_fd, file2_fd, pip->fd[0], pip->fd[1]);
 			close(pip->fd[1]);
 			dup2(pip->fd[0], 0);
-			close(pip->fd[0]);
+			//close(pip->fd[0]);
 			waitpid(pid, NULL, WNOHANG);
+			close(pip->fd[0]);
 		}
 		else
 			ft_error(NULL, cmd_arr);
