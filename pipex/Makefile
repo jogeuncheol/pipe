@@ -6,7 +6,7 @@
 #    By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/21 02:30:17 by gejo              #+#    #+#              #
-#    Updated: 2021/07/21 20:20:35 by gejo             ###   ########.fr        #
+#    Updated: 2021/07/29 12:44:40 by gejo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = pipex
 CFLAGS = -Wall -Wextra -Werror
 
 SRC_DIR = srcs
+
+tmp = tmp
 
 SRC_B_DIR = srcs_b
 

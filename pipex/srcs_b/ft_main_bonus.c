@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:35 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/25 13:07:53 by gejo             ###   ########.fr       */
+/*   Updated: 2021/07/29 13:12:26 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,16 @@ int	ft_find_path_idx(char **envp)
 void	ft_setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
 {
 	char	***cmd_arr;
-	int		file1_fd;
-	int		file2_fd;
+	int		input_fd;
+	int		output_fd;
 
 	cmd_arr = ft_set_cmd_arr(cmd_path, argv, 0);
 	if (cmd_arr == NULL)
 		ft_error(cmd_path, cmd_arr);
-	file1_fd = ft_open(1, argv);
-	file2_fd = ft_open(argc - 1, argv);
+	input_fd = ft_open(1, argv);
+	output_fd = ft_open(argc - 1, argv);
 	ft_free_cmd_path(cmd_path);
-	ft_pipex(cmd_arr, envp, file1_fd, file2_fd);
-	close(file1_fd);
-	close(file2_fd);
+	ft_pipex(cmd_arr, envp, input_fd, output_fd);
 	ft_free_cmd_arr(cmd_arr);
 }
 
