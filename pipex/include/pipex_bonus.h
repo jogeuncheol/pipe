@@ -38,7 +38,6 @@ char	***ft_set_cmd_arr(char **cmd_path, char **argv, int idx);
 char	**ft_set_cmd_without_sp(char **cmd_path, char **argv, int i);
 char	**ft_set_cmd_with_sp(char **cmd_path, char *argv, int i);
 char	*ft_cmd_full_path(char **cmd_path, char *cmd_argv);
-char	*ft_cut_str_single_q(char *str);
 char	*ft_cut_str_quote(char *str, char q);
 char	*ft_cut_str(char *str);
 char	*ft_print_cmd_name(char *str);

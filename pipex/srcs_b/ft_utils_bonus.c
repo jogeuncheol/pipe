@@ -58,32 +58,6 @@ char	*ft_cut_str_quote(char *str, char quote)
 	return (cut_cmd);
 }
 
-char	*ft_cut_str_single_q(char *str)
-{
-	int		i;
-	int		j;
-	char	*cut_cmd;
-
-	j = 0;
-	while (str[j] == '\'' || str[j] == '\"')
-		j++;
-	i = 0;
-	while (str[j + i] != '\'' && str[j + i] != '\"')
-		i++;
-	cut_cmd = malloc((i + 1) * sizeof(char));
-	if (cut_cmd == NULL)
-		return (NULL);
-	i = 0;
-	while (str[j + i] != '\'' && str[j + i] != '\"'
-		&& str[j + i] != '\0')
-	{
-		cut_cmd[i] = str[j + i];
-		i++;
-	}
-	cut_cmd[i] = '\0';
-	return (cut_cmd);
-}
-
 int	ft_find_sp(char	*str)
 {
 	int		i;
