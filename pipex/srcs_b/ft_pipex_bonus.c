@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:50 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/29 13:12:40 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/05 13:54:52 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,6 @@ void	ft_init_pipe(t_pipe *pip, char ***cmd_arr, int input_fd, int output_fd)
 		pip->cmd_count++;
 }
 
-void	ft_input_open_fail(t_pipe *pip, char ***cmd_arr)
-{
-	if (cmd_arr[pip->cmd_idx + 1] != NULL)
-	{
-		close(pip->fd[0]);
-		close(pip->fd2[1]);
-		dup2(pip->fd2[0], 0);
-		close(pip->fd2[0]);
-		dup2(pip->fd[1], 1);
-		close(pip->fd[1]);
-	}
-	else
-	{
-		close(pip->fd[0]);
-		close(pip->fd[1]);
-		close(pip->fd2[1]);
-		dup2(pip->fd2[0], 0);
-		close(pip->fd2[0]);
-		dup2(pip->output_fd, 1);
-		close(pip->output_fd);
-	}
-}
-
 void	ft_child(t_pipe *pip, char ***cmd_arr, char **envp)
 {
 	close(pip->fd[0]);
@@ -55,6 +32,8 @@ void	ft_child(t_pipe *pip, char ***cmd_arr, char **envp)
 	}
 	else
 	{
+		if (pip->output_fd == -1)
+			exit(1);
 		dup2(pip->output_fd, 1);
 		close(pip->output_fd);
 		close(pip->fd[1]);
@@ -71,14 +50,7 @@ void	ft_child(t_pipe *pip, char ***cmd_arr, char **envp)
 
 void	ft_parent(t_pipe *pip, pid_t pid)
 {
-	if (pip->input_fd == -1 && pip->cmd_count > 2 && pip->cmd_idx == 1)
-	{
-		close(pip->fd2[0]);
-		close(pip->fd[1]);
-		close(pip->fd2[1]);
-	}
-	else
-		close(pip->fd[1]);
+	close(pip->fd[1]);
 	waitpid(pid, NULL, WNOHANG);
 	dup2(pip->fd[0], 0);
 	close(pip->fd[0]);

@@ -6,7 +6,7 @@
 #    By: gejo <gejo@42seoul.kr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/21 02:30:17 by gejo              #+#    #+#              #
-#    Updated: 2021/07/29 12:44:40 by gejo             ###   ########.fr        #
+#    Updated: 2021/08/03 15:32:26 by gejo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,6 @@ NAME = pipex
 CFLAGS = -Wall -Wextra -Werror
 
 SRC_DIR = srcs
-
-tmp = tmp
 
 SRC_B_DIR = srcs_b
 
@@ -72,14 +70,14 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	rm -f $(OBJ_B) $(BONUS_HIDE)
-	gcc $(CFLAGS) -L./$(INCLUDE) -o $(NAME) $(OBJ)
+	gcc $(CFLAGS) -o $(NAME) $(OBJ)
 
 bonus : $(BONUS_HIDE)
 
 $(BONUS_HIDE) : $(OBJ_B)
 	touch $(BONUS_HIDE)
 	rm -f $(OBJ)
-	gcc $(CFLAGS) -L./$(INCLUDE) -o $(NAME) $(OBJ_B)
+	gcc $(CFLAGS) -o $(NAME) $(OBJ_B)
 
 clean :
 	rm -f $(OBJ) $(OBJ_B) $(BONUS_HIDE)

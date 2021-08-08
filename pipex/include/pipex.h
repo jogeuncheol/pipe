@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:25 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/28 19:37:26 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/03 19:42:56 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 typedef struct s_pipe
 {
 	int	fd[2];
-	int	fd2[2];
 	int	cmd_idx;
 	int	input_fd;
 	int	output_fd;

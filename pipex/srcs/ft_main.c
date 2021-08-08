@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:35 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/29 12:47:47 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/05 13:12:54 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	cmd_path = NULL;
 	path_idx = 0;
-	if (argc > 3 && ft_count_cmd(argv) >= 2)
+	if (argc == 5 && ft_count_cmd(argv) == 2)
 	{
 		path_idx = ft_find_path_idx(envp);
 		if (path_idx == -1)
