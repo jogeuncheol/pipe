@@ -6,16 +6,17 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:50 by gejo              #+#    #+#             */
-/*   Updated: 2021/08/05 13:54:52 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/12 19:47:58 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex_bonus.h"
 
-void	ft_init_pipe(t_pipe *pip, char ***cmd_arr, int input_fd, int output_fd)
+void	ft_init_pipe(t_pipe *pip, char ***cmd_arr, int input_fd, char **argv)
 {
 	pip->input_fd = input_fd;
-	pip->output_fd = output_fd;
+	pip->argv = argv;
+//	pip->output_fd = output_fd;
 	pip->cmd_idx = 0;
 	pip->cmd_count = 0;
 	while (cmd_arr[pip->cmd_count] != NULL)
@@ -34,8 +35,8 @@ void	ft_child(t_pipe *pip, char ***cmd_arr, char **envp)
 	{
 		if (pip->output_fd == -1)
 			exit(1);
-		dup2(pip->output_fd, 1);
-		close(pip->output_fd);
+		// dup2(pip->output_fd, 1);
+		// close(pip->output_fd);
 		close(pip->fd[1]);
 	}
 	if (pip->input_fd == -1 && pip->cmd_idx == 0)
@@ -51,12 +52,16 @@ void	ft_child(t_pipe *pip, char ***cmd_arr, char **envp)
 void	ft_parent(t_pipe *pip, pid_t pid)
 {
 	close(pip->fd[1]);
+	// if (pip->cmd_idx == pip->cmd_count - 1)
+	// 	pip->output_fd = ft_open(0, pip->argv);
 	waitpid(pid, NULL, WNOHANG);
-	dup2(pip->fd[0], 0);
+	if (pip->cmd_idx != pip->cmd_count - 1)
+		dup2(pip->fd[0], 0);
 	close(pip->fd[0]);
+	pip->cmd_idx++;
 }
 
-void	ft_pipex(char ***cmd_arr, char **envp, int input_fd, int output_fd)
+void	ft_pipex(char ***cmd_arr, char **envp, int input_fd, char **argv)
 {
 	t_pipe	*pip;
 	pid_t	pid;
@@ -64,10 +69,13 @@ void	ft_pipex(char ***cmd_arr, char **envp, int input_fd, int output_fd)
 	pip = malloc(sizeof(t_pipe));
 	if (pip == NULL)
 		ft_error(NULL, cmd_arr);
-	ft_init_pipe(pip, cmd_arr, input_fd, output_fd);
-	dup2(input_fd, 0);
+	ft_init_pipe(pip, cmd_arr, input_fd, argv);
+	// if (dup2(input_fd, 0) != -1)
+	// 	close(input_fd);
 	while (cmd_arr[pip->cmd_idx] != NULL)
 	{
+		if (pip->cmd_idx == 0 || (pip->cmd_idx == pip->cmd_count - 1))
+			ft_open_file(pip);
 		if (pipe(pip->fd) == -1)
 			ft_error(NULL, cmd_arr);
 		pid = fork();
@@ -77,7 +85,6 @@ void	ft_pipex(char ***cmd_arr, char **envp, int input_fd, int output_fd)
 			ft_parent(pip, pid);
 		else
 			ft_error(NULL, cmd_arr);
-		pip->cmd_idx++;
 	}
 	while (wait(NULL) > 0)
 		;

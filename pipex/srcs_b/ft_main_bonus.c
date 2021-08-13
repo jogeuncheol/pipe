@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:35 by gejo              #+#    #+#             */
-/*   Updated: 2021/07/29 13:12:26 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/12 23:43:26 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,18 @@ int	ft_find_path_idx(char **envp)
 	return (-1);
 }
 
-void	ft_setting_cmd(char **cmd_path, int argc, char **argv, char **envp)
+void	ft_setting_cmd(char **cmd_path, char **argv, char **envp)
 {
 	char	***cmd_arr;
 	int		input_fd;
-	int		output_fd;
 
 	cmd_arr = ft_set_cmd_arr(cmd_path, argv, 0);
 	if (cmd_arr == NULL)
 		ft_error(cmd_path, cmd_arr);
-	input_fd = ft_open(1, argv);
-	output_fd = ft_open(argc - 1, argv);
+	// input_fd = ft_open(1, argv);
+	input_fd = 0;
 	ft_free_cmd_path(cmd_path);
-	ft_pipex(cmd_arr, envp, input_fd, output_fd);
+	ft_pipex(cmd_arr, envp, input_fd, argv);
 	ft_free_cmd_arr(cmd_arr);
 }
 
@@ -82,12 +81,13 @@ int	main(int argc, char *argv[], char *envp[])
 		cmd_path = ft_set_path(cmd_path, envp, path_idx);
 		if (cmd_path == NULL)
 			ft_error(NULL, NULL);
-		ft_setting_cmd(cmd_path, argc, argv, envp);
+		ft_setting_cmd(cmd_path, argv, envp);
 	}
 	else
 	{
 		ft_putstr_fd("Usage : ./pipex input_file cmd1 cmd2 output_file\n", 2);
 		return (1);
 	}
+	while (1);
 	return (0);
 }

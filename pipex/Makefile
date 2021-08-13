@@ -12,7 +12,7 @@
 
 NAME = pipex
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g3 -fsanitize=address -Wall -Wextra -Werror
 
 SRC_DIR = srcs
 
