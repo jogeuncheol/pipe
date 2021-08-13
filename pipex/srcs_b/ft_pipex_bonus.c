@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:50 by gejo              #+#    #+#             */
-/*   Updated: 2021/08/13 17:57:40 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/13 19:22:43 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@ void	ft_init_pipe(t_pipe *pip, char ***cmd_arr, int input_fd, char **argv)
 	pip->cmd_count = 0;
 	while (cmd_arr[pip->cmd_count] != NULL)
 		pip->cmd_count++;
+}
+
+void	ft_exec(t_pipe *pip, char ***cmd_arr, char **envp)
+{
+	if (cmd_arr[pip->cmd_idx + 1] == NULL)
+	{
+		ft_open_file(pip);
+		if (pip->output_fd == -1)
+			exit(1);
+		close(pip->fd[1]);
+	}
+	if (execve(cmd_arr[pip->cmd_idx][0], cmd_arr[pip->cmd_idx], envp) == -1)
+	{
+		ft_putstr_fd(ft_print_cmd_name(cmd_arr[pip->cmd_idx][0]), 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(errno);
+	}
 }
 
 void	ft_child(t_pipe *pip, char ***cmd_arr, char **envp)
@@ -42,22 +59,15 @@ void	ft_child(t_pipe *pip, char ***cmd_arr, char **envp)
 	}
 	if (pip->input_fd == -1 && pip->cmd_idx == 0)
 		exit(errno);
-	if (execve(cmd_arr[pip->cmd_idx][0], cmd_arr[pip->cmd_idx], envp) == -1)
-	{
-		ft_putstr_fd(ft_print_cmd_name(cmd_arr[pip->cmd_idx][0]), 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit(errno);
-	}
+	ft_exec(pip, cmd_arr, envp);
 }
 
 void	ft_parent(t_pipe *pip, pid_t pid)
 {
 	close(pip->fd[1]);
-	// if (pip->cmd_idx == pip->cmd_count - 1)
-	// 	pip->output_fd = ft_open(0, pip->argv);
 	waitpid(pid, NULL, WNOHANG);
-	if (pip->cmd_idx != pip->cmd_count - 1)
-		dup2(pip->fd[0], 0);
+	// if (pip->cmd_idx != pip->cmd_count - 1)
+	dup2(pip->fd[0], 0);
 	close(pip->fd[0]);
 	pip->cmd_idx++;
 }
@@ -71,13 +81,9 @@ void	ft_pipex(char ***cmd_arr, char **envp, int input_fd, char **argv)
 	if (pip == NULL)
 		ft_error(NULL, cmd_arr);
 	ft_init_pipe(pip, cmd_arr, input_fd, argv);
-	// if (dup2(input_fd, 0) != -1)
-	// 	close(input_fd);
 	ft_open_file(pip);
-	while (cmd_arr[pip->cmd_idx] != NULL)
+	while (cmd_arr[pip->cmd_idx + 1] != NULL)
 	{
-		// if (pip->cmd_idx == 0 || (pip->cmd_idx == pip->cmd_count - 1))
-		// 	ft_open_file(pip);
 		if (pipe(pip->fd) == -1)
 			ft_error(NULL, cmd_arr);
 		pid = fork();
@@ -90,6 +96,7 @@ void	ft_pipex(char ***cmd_arr, char **envp, int input_fd, char **argv)
 	}
 	while (wait(NULL) > 0)
 		;
+	ft_exec(pip, cmd_arr, envp);
 	free(pip);
 	pip = NULL;
 	exit(0);
