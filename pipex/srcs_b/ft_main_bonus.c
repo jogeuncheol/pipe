@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:35 by gejo              #+#    #+#             */
-/*   Updated: 2021/08/12 23:43:26 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/13 18:05:49 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_setting_cmd(char **cmd_path, char **argv, char **envp)
 {
 	char	***cmd_arr;
 	int		input_fd;
+	pid_t	pid;
 
 	cmd_arr = ft_set_cmd_arr(cmd_path, argv, 0);
 	if (cmd_arr == NULL)
@@ -59,7 +60,13 @@ void	ft_setting_cmd(char **cmd_path, char **argv, char **envp)
 	// input_fd = ft_open(1, argv);
 	input_fd = 0;
 	ft_free_cmd_path(cmd_path);
-	ft_pipex(cmd_arr, envp, input_fd, argv);
+	pid = fork();
+	if (pid < 0)
+		ft_error(NULL, cmd_arr);
+	else if (pid == 0)
+		ft_pipex(cmd_arr, envp, input_fd, argv);
+	else
+		wait(NULL);
 	ft_free_cmd_arr(cmd_arr);
 }
 
@@ -88,6 +95,5 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_putstr_fd("Usage : ./pipex input_file cmd1 cmd2 output_file\n", 2);
 		return (1);
 	}
-	while (1);
 	return (0);
 }

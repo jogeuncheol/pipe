@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:50 by gejo              #+#    #+#             */
-/*   Updated: 2021/08/12 19:47:58 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/13 17:57:40 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_child(t_pipe *pip, char ***cmd_arr, char **envp)
 	}
 	else
 	{
+		ft_open_file(pip);
 		if (pip->output_fd == -1)
 			exit(1);
 		// dup2(pip->output_fd, 1);
@@ -72,10 +73,11 @@ void	ft_pipex(char ***cmd_arr, char **envp, int input_fd, char **argv)
 	ft_init_pipe(pip, cmd_arr, input_fd, argv);
 	// if (dup2(input_fd, 0) != -1)
 	// 	close(input_fd);
+	ft_open_file(pip);
 	while (cmd_arr[pip->cmd_idx] != NULL)
 	{
-		if (pip->cmd_idx == 0 || (pip->cmd_idx == pip->cmd_count - 1))
-			ft_open_file(pip);
+		// if (pip->cmd_idx == 0 || (pip->cmd_idx == pip->cmd_count - 1))
+		// 	ft_open_file(pip);
 		if (pipe(pip->fd) == -1)
 			ft_error(NULL, cmd_arr);
 		pid = fork();
@@ -90,4 +92,5 @@ void	ft_pipex(char ***cmd_arr, char **envp, int input_fd, char **argv)
 		;
 	free(pip);
 	pip = NULL;
+	exit(0);
 }
