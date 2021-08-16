@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:50 by gejo              #+#    #+#             */
-/*   Updated: 2021/08/17 01:13:58 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/17 02:02:33 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_exec(t_pipe *pip, char ***cmd_arr, char **envp)
 
 void	ft_child(t_pipe *pip, char ***cmd_arr, char **envp)
 {
+	close(10);
 	close(pip->fd[0]);
 	if (cmd_arr[pip->cmd_idx + 1] != NULL)
 	{
@@ -83,9 +84,9 @@ void	ft_pipex(char ***cmd_arr, char **envp, char **argv)
 		else
 			ft_error(NULL, cmd_arr);
 	}
+	dup2(10, 0);
 	while (wait(NULL) > 0)
 		;
 	free(pip);
 	pip = NULL;
-	exit(0);
 }

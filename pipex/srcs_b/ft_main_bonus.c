@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:35 by gejo              #+#    #+#             */
-/*   Updated: 2021/08/17 01:14:06 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/17 02:02:05 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_setting_cmd(char **cmd_path, char **argv, char **envp)
 	if (cmd_arr == NULL)
 		ft_error(cmd_path, cmd_arr);
 	ft_free_cmd_path(cmd_path);
+	dup2(0, 10);
 	ft_pipex(cmd_arr, envp, argv);
 	ft_free_cmd_arr(cmd_arr);
 }
