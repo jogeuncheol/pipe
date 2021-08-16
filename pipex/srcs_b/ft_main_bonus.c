@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:35 by gejo              #+#    #+#             */
-/*   Updated: 2021/08/13 18:05:49 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/17 01:14:06 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,12 @@ int	ft_find_path_idx(char **envp)
 void	ft_setting_cmd(char **cmd_path, char **argv, char **envp)
 {
 	char	***cmd_arr;
-	int		input_fd;
-	pid_t	pid;
 
 	cmd_arr = ft_set_cmd_arr(cmd_path, argv, 0);
 	if (cmd_arr == NULL)
 		ft_error(cmd_path, cmd_arr);
-	// input_fd = ft_open(1, argv);
-	input_fd = 0;
 	ft_free_cmd_path(cmd_path);
-	pid = fork();
-	if (pid < 0)
-		ft_error(NULL, cmd_arr);
-	else if (pid == 0)
-		ft_pipex(cmd_arr, envp, input_fd, argv);
-	else
-		wait(NULL);
+	ft_pipex(cmd_arr, envp, argv);
 	ft_free_cmd_arr(cmd_arr);
 }
 

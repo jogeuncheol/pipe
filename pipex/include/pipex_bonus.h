@@ -6,7 +6,7 @@
 /*   By: gejo <gejo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:30:25 by gejo              #+#    #+#             */
-/*   Updated: 2021/08/12 19:27:56 by gejo             ###   ########.fr       */
+/*   Updated: 2021/08/17 01:14:19 by gejo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_strdup(const char *str);
 char	*ft_strjoin(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
-void	ft_pipex(char ***cmd_arr, char **envp, int input_fd, char **argv);
+void	ft_pipex(char ***cmd_arr, char **envp, char **argv);
 int		ft_open(int idx, char **argv);
 void	ft_open_file(t_pipe *pip);
 void	ft_free_arr(char ***cmd_arr, int cmd_count);
