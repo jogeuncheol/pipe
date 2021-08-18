@@ -23,13 +23,13 @@
 
 typedef struct s_pipe
 {
-	int	fd[2];
-	int	cmd_idx;
-	int	input_fd;
-	int	output_fd;
-	int	cmd_count;
-	char **argv;
-}		t_pipe;
+	int		fd[2];
+	int		cmd_idx;
+	int		input_fd;
+	int		output_fd;
+	int		cmd_count;
+	char	**argv;
+}			t_pipe;
 
 int		ft_count_cmd(char **argv);
 
